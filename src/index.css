@@ -11,3 +11,88 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+/* ################## */
+.login{
+background: linear-gradient(
+  to bottom right,
+  #000000 0%,
+  #151414 25%,
+  #252323 45%,
+  #2C2A2A 65%,
+  #161515 85%,
+  #000000 100%
+);
+
+
+}
+.login-box{
+  background: linear-gradient(195deg, #49a3f1, #1A73E8);
+}
+
+
+/*  */
+.blue-bg{
+  height: 180px;
+  color: #ffffff;
+ background-repeat: no-repeat;
+ background-size: cover;
+}
+.dashcard{
+  height: 180px;
+}
+
+.icobox{
+  position: absolute;
+  top:-20px;
+  left: 30px;
+  height:90px;
+   width: 90px;
+   float:right;
+   display:flex;
+   align-items:center;
+  justify-content: center; 
+  border-radius:6px;
+  box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
+}
+/* ********** Respnsive * *********  */
+ /* Extra small devices (phones, less than 576px) */
+@media (max-width: 575.98px) {
+ .dashcard{
+  height: 100%;
+}
+.icobox{
+  height: 40px;
+  width: 40px;
+}
+}
+
+/* Small devices (≥576px) */
+@media (min-width: 576px) and (max-width: 767.98px) {
+  .dashcard{
+  height: 100%;
+}
+
+}
+
+/* Medium devices (≥768px) */
+@media (min-width: 768px) and (max-width: 991.98px) {
+ .dashcard{
+  height: 100%;
+}
+}
+
+/* Large devices (≥992px) */
+@media (min-width: 992px) and (max-width: 1199.98px) {
+ .dashcard{
+  height: 100%;
+}
+}
+
+/* Extra large devices (≥1200px) */
+@media (min-width: 1200px) {
+  .example {
+    background-color: plum;
+  }
+}
+
