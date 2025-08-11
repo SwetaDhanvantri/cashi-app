@@ -7,6 +7,7 @@ import { IssuedCouponDt, RedeemedCouponDt, TotalCustomerDt, TotalValueDt } from 
 import Navbar from "./components/Navbar";
 import CreateCouponDialog from "./pages/dashboard/CreateCouponDialog";
 import CreatePromotionDialog from "./pages/dashboard/CreatePromotionDialog";
+import SrvmeInvoice from "./components/SrvmeInvoice";
 
 const Layout = ({ onLogout }) => {
   const location = useLocation();
@@ -24,6 +25,7 @@ const Layout = ({ onLogout }) => {
         <Route path="/totalcustomer" element={<TotalCustomerDt />} />
         <Route path="/createcoupon" element={<CreateCouponDialog/>} />
         <Route path="/createpromotion" element={<CreatePromotionDialog/>} />
+        <Route path="/srvmeinvoice" element={<SrvmeInvoice />} />
       </Routes>
     </>
   );
