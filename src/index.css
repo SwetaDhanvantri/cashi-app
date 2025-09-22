@@ -11,7 +11,10 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
-
+.css-1toxriw-MuiList-root-MuiMenu-list{
+  padding-top: 0;
+  padding-bottom: 0;
+}
 /* ################## */
 .login{
 background: linear-gradient(
@@ -55,6 +58,18 @@ background: linear-gradient(
   border-radius:6px;
   box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
 }
+
+/* text field */
+.transparent-textfield .MuiFilledInput-root {
+  background-color: transparent;
+  transition: background-color 0.3s;
+}
+
+.transparent-textfield .Mui-focused .MuiFilledInput-root,
+.transparent-textfield .MuiInputLabel-shrink + .MuiFilledInput-root {
+  background-color: #e3f2fd; /* Light blue when focused or shrink */
+}
+
 /* ********** Respnsive * *********  */
  /* Extra small devices (phones, less than 576px) */
 @media (max-width: 575.98px) {

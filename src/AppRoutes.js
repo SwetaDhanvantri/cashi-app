@@ -3,11 +3,14 @@ import React, { useState } from "react";
 import { Routes, Route, useNavigate, useLocation } from "react-router-dom";
 import Login from "./pages/Login";
 import Dashboard from "./pages/dashboard/Dashboard";
-import { IssuedCouponDt, RedeemedCouponDt, TotalCustomerDt, TotalValueDt } from "./pages/dashboard/ListingTables";
-import Navbar from "./components/Navbar";
+import { CouponData, IssuedCouponDt, RedeemedCouponDt, TotalCustomerDt, TotalValueDt } from "./pages/dashboard/ListingTables";
+import Navbar from "./components/Navbar/Navbar";
 import CreateCouponDialog from "./pages/dashboard/CreateCouponDialog";
 import CreatePromotionDialog from "./pages/dashboard/CreatePromotionDialog";
-import SrvmeInvoice from "./components/SrvmeInvoice";
+import Wallet from "./components/Wallet/Wallet";
+import CouponList from "./pages/dashboard/CouponList";
+
+
 
 const Layout = ({ onLogout }) => {
   const location = useLocation();
@@ -23,9 +26,12 @@ const Layout = ({ onLogout }) => {
         <Route path="/redeemed" element={<RedeemedCouponDt />} />
         <Route path="/totalvalue" element={<TotalValueDt />} />
         <Route path="/totalcustomer" element={<TotalCustomerDt />} />
-        <Route path="/createcoupon" element={<CreateCouponDialog/>} />
-        <Route path="/createpromotion" element={<CreatePromotionDialog/>} />
-        <Route path="/srvmeinvoice" element={<SrvmeInvoice />} />
+        <Route path="/createcoupon" element={<CreateCouponDialog />} />
+        <Route path="/createpromotion" element={<CreatePromotionDialog />} />
+        <Route path="/wallet" element={<Wallet />} />
+        <Route path="/couponlist" element={<CouponList />} />
+        
+     
       </Routes>
     </>
   );

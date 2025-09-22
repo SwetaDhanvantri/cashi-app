@@ -1,10 +1,7 @@
 import React from "react";
 import { Box, Typography, Button, Container, Card, Divider } from "@mui/material";
-import Navbar from "../../components/Navbar";
 import Grid from '@mui/material/Grid';
 import { Add, ArrowCircleRight, Style, LocalOffer, Widgets, Diversity3 } from "@mui/icons-material";
-import CreateCouponDialog from "./CreateCouponDialog";
-import CreatePromotionDialog from "./CreatePromotionDialog";
 import { useNavigate } from "react-router-dom";
 
 
@@ -19,13 +16,14 @@ const navigate = useNavigate();
         <Container >
             <Box display="flex" justifyContent="end">
                  <Button variant="contained" onClick={() => navigate('/createcoupon')}> <Add /> Create Coupon </Button>
+                 <Button variant="contained" sx={{ml:1, background:'linear-gradient(195deg, #66BB6A, #43A047)'}} onClick={() => navigate('/couponlist')}> Coupon List </Button>
                   <Button variant="contained" sx={{ml:'12px', backgroundColor:'#000000', color:'#ffffff'}} 
                   onClick={() => navigate('/createpromotion')}>
                    <Add /> Create Promotion</Button>
             </Box>
            
             <Grid container rowSpacing={6} columnSpacing={2} my={6}>
-            <Grid size={{ xs: 12,sm:12, md: 6,}} position="relative">
+            <Grid size={{ xs: 12,sm:12, md: 6,}} position="relative" sx={{boxShadow: 'rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px'}}>
             <Card className="dashcard" sx={{padding:'10px 15px', backgroundColor:'#ffffff', }} >
                 <Grid container spacing={2}>
                 <Grid size={{ xs: 12, sm:6, md: 4,}}>
@@ -47,11 +45,11 @@ const navigate = useNavigate();
             </Box>
             </Card>
             </Grid>
-            <Grid size={{ xs: 12,sm:12, md: 6,}} position="relative">
+            <Grid size={{ xs: 12,sm:12, md: 6,}} position="relative" sx={{boxShadow: 'rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px'}}>
                 <Card className="dashcard" sx={{padding:'10px 15px', }} >
                 <Grid container spacing={2}>
                 <Grid size={{ xs: 12,sm:6, md: 4,}}>
-                 <Box className="icobox"   variant="gradient" color="#30325E"
+                 <Box className="icobox"  variant="gradient" color="#30325E"
                  sx={{background:'linear-gradient(195deg, #49a3f1, #1A73E8)'}}>
                   
                     <LocalOffer sx={{fontSize:'38px', color:'#ffffff'}} />
@@ -72,7 +70,7 @@ const navigate = useNavigate();
             </Box>
             </Card>
             </Grid>
-           <Grid size={{ xs: 12,sm:12, md: 6,}} position="relative">
+           <Grid size={{ xs: 12,sm:12, md: 6,}} position="relative" sx={{boxShadow: 'rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px'}}>
                 <Card className="dashcard" sx={{padding:'10px 15px', }}>
                 <Grid container spacing={2}>
                 <Grid size={{ xs: 12,sm:6, md: 4,}}>
@@ -96,7 +94,7 @@ const navigate = useNavigate();
             </Box>
             </Card>
             </Grid>
-            <Grid size={{ xs: 12,sm:12, md: 6}} position="relative">
+            <Grid size={{ xs: 12,sm:12, md: 6}} position="relative" sx={{boxShadow: 'rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px'}}>
                 <Card className="dashcard" sx={{padding:'10px 15px', }}><Grid container spacing={2}>
                 <Grid size={{ xs: 12,sm:6, md: 4,}}>
                  <Box className="icobox" 
