@@ -34,7 +34,7 @@ function CustomPagination({ apiRef, isMobile }) {
 
 const PAGE_SIZE = 5;
 
-export default function CouponList() {
+export default function CampaignList() {
   const navigate = useNavigate();
   const apiRef = useGridApiRef();
   const [datar, setDatar] = useState([]);
@@ -43,9 +43,9 @@ export default function CouponList() {
     pageSize: PAGE_SIZE,
     page: 0,
   });
-  useEffect(()=> {
-  couponListApi();
-  }, []);
+  // useEffect(()=> {
+  // couponListApi();
+  // }, []);
   // Autosize on mount and when screen size changes
   useEffect(() => {
     if (isMobile && apiRef.current) {
@@ -54,31 +54,31 @@ export default function CouponList() {
   }, [isMobile]);
 
   // Offer List API
-const couponListApi = async () => {
-  const payload = { mod: "CASHI_OFFER_LIST", data_arr: { store_id: "1020" } };
-  const apiResult = await callPostApi("cashi-offer", payload);
+// const couponListApi = async () => {
+//   const payload = { mod: "CASHI_OFFER_LIST", data_arr: { store_id: "1020" } };
+//   const apiResult = await callPostApi("cashi-offer", payload);
 
-  console.log("payload:", JSON.stringify(payload));
-  console.log("response:", JSON.stringify(apiResult));
+//   console.log("payload:", JSON.stringify(payload));
+//   console.log("response:", JSON.stringify(apiResult));
 
-  if (apiResult.status === "200" && Array.isArray(apiResult.data?.success)) {
-    const formattedData = apiResult.data.success.map((item, index) => ({
-      id: index + 1,
-      offerId: item.offer_id || "NA",
-      ctitle: item.offer_title || "NA",
-      cvalue: item.coupon_coin || "NA",
-      shortd: item.short_desc || "NA",
-      longd: item.long_desc || "NA",
-      activedate: item.offer_active || "NA",
-      expdate: item.offer_expire || "NA",
-     offimg: item.offer_logo  || "NA",
-    }));
+//   if (apiResult.status === "200" && Array.isArray(apiResult.data?.success)) {
+//     const formattedData = apiResult.data.success.map((item, index) => ({
+//       id: index + 1,
+//       offerId: item.offer_id || "NA",
+//       ctitle: item.offer_title || "NA",
+//       cvalue: item.coupon_coin || "NA",
+//       shortd: item.short_desc || "NA",
+//       longd: item.long_desc || "NA",
+//       activedate: item.offer_active || "NA",
+//       expdate: item.offer_expire || "NA",
+//      offimg: item.offer_logo  || "NA",
+//     }));
 
-    setDatar(formattedData);
-  } else {
-    console.error("API Error:", apiResult);
-  }
-};
+//     setDatar(formattedData);
+//   } else {
+//     console.error("API Error:", apiResult);
+//   }
+// };
 
 
  const columns = [
@@ -107,7 +107,11 @@ const couponListApi = async () => {
   { field: 'shortd', headerName: 'Short Description', flex: isMobile ? undefined : 1 },
   { field: 'longd', headerName: 'Long Description', flex: 2, },
  ]
-
+const rows = [
+  {
+    cvalue: '122', activedate:'888', expdate:'8899', shortd:'778', longd:'88'
+  }
+]
 
   return (
     <Container>
@@ -135,7 +139,7 @@ const couponListApi = async () => {
           alignItems: 'center'
         }}
       >
-       Coupon List
+       Campaign List
       </Typography>
 
     

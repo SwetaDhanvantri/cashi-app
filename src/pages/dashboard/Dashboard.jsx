@@ -1,11 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 import { Box, Typography, Button, Container, Card, Divider } from "@mui/material";
 import Grid from '@mui/material/Grid';
 import { Add, ArrowCircleRight, Style, LocalOffer, Widgets, Diversity3 } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
-
-
+import campimg from '../../assets/promotion.png'
 function Dashboard() {
+const user = JSON.parse(sessionStorage.getItem("user") || "{}");
+console.log(user.store_info.store_id); 
+
 const navigate = useNavigate();
   return (
     <Box>
@@ -20,6 +22,9 @@ const navigate = useNavigate();
                   <Button variant="contained" sx={{ml:'12px', backgroundColor:'#000000', color:'#ffffff'}} 
                   onClick={() => navigate('/createpromotion')}>
                    <Add /> Create Promotion</Button>
+                   <Button className="promotion" sx={{backgroundColor:'#eee', mx:1,
+                    boxShadow: 'rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px'
+                   }} onClick={() => navigate('/campaignList')}><img src={campimg} alt="campaign" style={{height:'30px', width:'auto'}} /> </Button>
             </Box>
            
             <Grid container rowSpacing={6} columnSpacing={2} my={6}>
@@ -120,6 +125,15 @@ const navigate = useNavigate();
           
         </Container>
       </Box>
+
+     <style>
+  {`
+    .promotion:hover {
+      background-color: #ffffff;
+    }
+  `}
+</style>
+
     </Box>
   );
 }

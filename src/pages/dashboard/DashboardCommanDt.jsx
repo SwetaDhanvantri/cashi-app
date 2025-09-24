@@ -67,6 +67,16 @@ export default function DashboardCommanDt({ title, icon, columns, rows, toolbar,
 
   return (
     <Container>
+       <Box sx={{ display: 'flex', justifyContent: 'end', mb: 2 }}>
+      
+        <Button
+          variant="contained"
+          sx={{ backgroundColor: '#000000', color: '#ffffff' }}
+          onClick={() => navigate('/dashboard')}
+        >
+          Back
+        </Button>
+      </Box>
       {/* Title */}
       <Typography
         variant="h6"
@@ -85,17 +95,8 @@ export default function DashboardCommanDt({ title, icon, columns, rows, toolbar,
       </Typography>
 
       {/* Back Button */}
-      <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 2 }}>
+      <Box sx={{ mb: 2 }}>
         <Box>{toolbar}</Box>
-
-        {/* Right side: Back button */}
-        <Button
-          variant="contained"
-          sx={{ backgroundColor: '#000000', color: '#ffffff' }}
-          onClick={() => navigate('/dashboard')}
-        >
-          Back
-        </Button>
       </Box>
 
       {/* DataGrid */}

@@ -49,14 +49,17 @@ const handleSubmit = async (e) => {
          console.log("res" + JSON.stringify(apiResult) )
          if (apiResult.status === "202" && apiResult.data) {
            toast.success("Login successfully!");
-          //  const { user_info } = apiResult.data;
-          //  sessionStorage.setItem('storeid', user_info.store_id); 
-          //  console.log("storeid" + user_info.store_id )
-          //  sessionStorage.setItem('storename', user_info.store_name); 
-          //  sessionStorage.setItem('ownername', user_info.owner_name); 
-          //  sessionStorage.setItem('storeaddress', user_info.store_address); 
+          const successData = apiResult.data.success; 
+           const storeInfo = successData.store_info;
+         
+           if (storeInfo) {
+             sessionStorage.setItem("user", JSON.stringify(successData));
+             console.log("User stored:", successData);
+           }
+          
            onLogin(apiResult.data);
            navigate("/dashboard"); 
+            
          } else {
            if (apiResult.status === "401") {
              setLoading(false);

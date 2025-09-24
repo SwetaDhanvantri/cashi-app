@@ -9,6 +9,7 @@ import CreateCouponDialog from "./pages/dashboard/CreateCouponDialog";
 import CreatePromotionDialog from "./pages/dashboard/CreatePromotionDialog";
 import Wallet from "./components/Wallet/Wallet";
 import CouponList from "./pages/dashboard/CouponList";
+import CampaignList from "./pages/dashboard/CampaignList";
 
 
 
@@ -30,6 +31,7 @@ const Layout = ({ onLogout }) => {
         <Route path="/createpromotion" element={<CreatePromotionDialog />} />
         <Route path="/wallet" element={<Wallet />} />
         <Route path="/couponlist" element={<CouponList />} />
+        <Route path="/campaignList" element={<CampaignList />} />
         
      
       </Routes>

@@ -28,20 +28,22 @@ const navigate = useNavigate();
             </Typography>
            
            </Grid>
-           <Grid container sx={{borderRadius:'6px', border:'1px solid #dbdbdbff', mx:'10px', my:'5px', cursor:'pointer'}} 
+           <Box sx={{borderRadius:'6px', border:'1px solid #dbdbdbff', mx:'10px', my:'5px', cursor:'pointer',
+            display:'flex', alignItems:'center'
+           }} 
            onClick={()=> navigate('/wallet')} >
-             <Grid size={3}>
+             <Typography sx={{width:'40px'}}>
                  <Typography sx={{px:'7px', py:'5px' , backgroundColor:'#888888', borderTopLeftRadius:'5px',
                    borderBottomLeftRadius:'5px'
                  }}>
                   <AccountBalanceWallet  onClick={()=> navigate('/wallet')} />
                  </Typography>
-             </Grid>
-              <Grid size={9} sx={{display:'flex', alignItems:'center', px:1}}  >
-              <CurrencyRupee /> 120000666.80
-             </Grid>
+             </Typography>
+              <Typography sx={{display:'flex', alignItems:'center', px:1}}  >
+              <CurrencyRupee /> 0.00
+             </Typography>
          
-           </Grid>
+           </Box>
           
            <StoreDialog />
             {/* <Typography sx={{background:'linear-gradient(195deg, #49a3f1, #1A73E8)', px:'7px', py:'5px', borderRadius:'6px',my:'5px'}} >
