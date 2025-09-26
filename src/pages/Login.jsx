@@ -1,7 +1,7 @@
 
-import React, { useState } from "react";
+import { useState } from "react";
 import { callPostApi } from "../components/API/ApiCallFunction";
-import { Button, Box, TextField, Typography, Paper } from "@mui/material";
+import { Button, Box, TextField, Typography } from "@mui/material";
 import { ToastContainer, toast } from 'react-toastify';
 import { useNavigate } from "react-router-dom";
 
@@ -54,6 +54,8 @@ const handleSubmit = async (e) => {
          
            if (storeInfo) {
              sessionStorage.setItem("user", JSON.stringify(successData));
+            //  sessionStorage.setItem('authToken', user_info.token); 
+            //  sessionStorage.setItem('tokenExpiry', new Date().getTime() + 3600000); 
              console.log("User stored:", successData);
            }
           
@@ -92,7 +94,10 @@ const handleSubmit = async (e) => {
            value={password}  onChange={(e) => setPassword(e.target.value)}
            />
           <Button type="submit" variant="contained" fullWidth sx={{ mt: 2, background:'linear-gradient(195deg, #42424a, #191919)',
-            color:'#ffffff'
+            color:'#ffffff',
+             '&.Mui-disabled': {
+              color: '#ffffff',
+             }
           }}
             disabled={loading}>
             {loading ? "Logging in..." : "Login"}

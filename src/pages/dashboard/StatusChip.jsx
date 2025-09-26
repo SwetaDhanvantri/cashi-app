@@ -3,7 +3,7 @@ import * as React from 'react';
 import Chip from '@mui/material/Chip';
 import { styled } from '@mui/material/styles';
 import { Close, InfoOutline, InfoOutlined, Replay, Verified, WarningAmber } from '@mui/icons-material';
-import {Box, Button, Typography, Grid, Dialog, Alert, Card } from '@mui/material';
+import {Box, Button, Typography, Grid, Dialog, Card } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 
 export const STATUS_OPTIONS = ['Active', 'Pending', 'Rejected', 'Resubmit'];

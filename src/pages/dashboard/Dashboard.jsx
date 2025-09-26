@@ -1,4 +1,3 @@
-import React, { useState } from "react";
 import { Box, Typography, Button, Container, Card, Divider } from "@mui/material";
 import Grid from '@mui/material/Grid';
 import { Add, ArrowCircleRight, Style, LocalOffer, Widgets, Diversity3 } from "@mui/icons-material";
@@ -19,9 +18,9 @@ const navigate = useNavigate();
             <Box display="flex" justifyContent="end">
                  <Button variant="contained" onClick={() => navigate('/createcoupon')}> <Add /> Create Coupon </Button>
                  <Button variant="contained" sx={{ml:1, background:'linear-gradient(195deg, #66BB6A, #43A047)'}} onClick={() => navigate('/couponlist')}> Coupon List </Button>
-                  <Button variant="contained" sx={{ml:'12px', backgroundColor:'#000000', color:'#ffffff'}} 
+                  {/* <Button variant="contained" sx={{ml:'12px', backgroundColor:'#000000', color:'#ffffff'}} 
                   onClick={() => navigate('/createpromotion')}>
-                   <Add /> Create Promotion</Button>
+                   <Add /> Create Promotion</Button> */}
                    <Button className="promotion" sx={{backgroundColor:'#eee', mx:1,
                     boxShadow: 'rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px'
                    }} onClick={() => navigate('/campaignList')}><img src={campimg} alt="campaign" style={{height:'30px', width:'auto'}} /> </Button>
@@ -39,7 +38,7 @@ const navigate = useNavigate();
                </Grid>
                <Grid size={{ xs: 12,sm:6, md: 8,}} sx={{mb:4}}>
                  <Typography variant="h6">Issued Coupon</Typography>
-                <Typography variant="h4" >50</Typography>
+                <Typography variant="h4" >0</Typography>
                </Grid>
               
                 </Grid>
@@ -63,7 +62,7 @@ const navigate = useNavigate();
                </Grid>
                   <Grid size={{ xs: 12,sm:6, md: 8,}} sx={{mb:4}}>
                  <Typography variant="h6">Reedemed Coupon</Typography>
-                <Typography variant="h4">50</Typography>
+                <Typography variant="h4">0</Typography>
                
                  </Grid>
                 </Grid>
@@ -87,7 +86,7 @@ const navigate = useNavigate();
                </Grid>
                   <Grid size={{ xs: 12,sm:6, md: 8,}} sx={{mb:4}}>
                  <Typography variant="h6">Total Value</Typography>
-                 <Typography variant="h4">50</Typography>
+                 <Typography variant="h4">0</Typography>
                
                  </Grid>
                 </Grid>
@@ -110,7 +109,7 @@ const navigate = useNavigate();
                </Grid>
                   <Grid size={{ xs: 12,sm:6, md: 8,}} sx={{mb:4}}>
                  <Typography variant="h6">Total Customers</Typography>
-                  <Typography variant="h4">50</Typography>
+                  <Typography variant="h4">0</Typography>
                  </Grid>
                 </Grid>
                

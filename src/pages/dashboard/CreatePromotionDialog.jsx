@@ -1,5 +1,5 @@
 import Button from '@mui/material/Button';
-import { Box, Grid, TextField, Typography } from '@mui/material';
+import { Box, Grid, Typography } from '@mui/material';
 import { Container } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
@@ -22,8 +22,17 @@ export default function CreatePromotionDialog() {
 
   return (
      <Typography sx={{ my:6}}>
-
+           
       <Container>
+          <Box sx={{ display: 'flex', justifyContent: 'flex-start', mb: 2 }}>
+                        <Button
+                          variant="contained"
+                          sx={{ backgroundColor: '#000000', color: '#ffffff' }}
+                          onClick={() => navigate(-1)}
+                        >
+                          Back
+                        </Button>
+                      </Box>
         <Typography variant="h6" gutterBottom sx={{ background: 'linear-gradient(195deg, #49a3f1, #1A73E8)', p: 1, color: '#ffffff',
                  borderRadius: '4px', mb:3 }}>
                 <Add /> Create Promotion

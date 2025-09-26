@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useMemo, useRef } from 'react';
+import { useState, useCallback, useMemo, useRef } from 'react';
 import {Box,Grid, TextField, Typography, Button, Container, Slider, Radio, RadioGroup, FormControlLabel, FormControl,
   FormLabel} from '@mui/material';
 import { Add, Info} from '@mui/icons-material';
@@ -10,7 +10,6 @@ import GradientLoader from '../CommanComponents/GradientLoader';
 
 export default function CreateCouponDialog() {
   const navigate = useNavigate();
-  const [campusid, setCampusid] = useState(sessionStorage.getItem("campusid") || "");
   const [loading, setLoading] = useState(false);
   const inputRef = useRef(null);
   const inputRef1 = useRef(null);
@@ -165,7 +164,7 @@ const handleSubmit = async () => {
     <Container sx={{ my: 6 }}>
        <ToastContainer />
         {loading && <GradientLoader text="Creating Coupon" />}        {/* // loader */}
-          <Box sx={{ display: 'flex', justifyContent: 'flex-end', mb: 2 }}>
+          <Box sx={{ display: 'flex', justifyContent: 'start', mb: 2 }}>
                 <Button
                   variant="contained"
                   sx={{ backgroundColor: '#000000', color: '#ffffff' }}

@@ -1,15 +1,31 @@
-import React from "react";
-import { AppBar, Toolbar, Typography, IconButton, Box, Grid, Button } from "@mui/material";
+import React, { useState } from "react";
+import { AppBar, Toolbar, Typography, IconButton, Box, Grid, Button,
+  Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle 
+ } from "@mui/material";
 import LogoutIcon from "@mui/icons-material/Logout";
-import { AccountBalanceWallet, CurrencyRupee, Info} from "@mui/icons-material";
+import { AccountBalanceWallet, Celebration, CurrencyRupee, Info, WarningAmber} from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
 import StoreDialog from "./StoreDialog";
+import { Card } from "react-bootstrap";
 
 function Navbar({ onLogout }) {
 const navigate = useNavigate();
+ const [open, setOpen] = useState(false);
+ const handleLogoutClick = () => {
+    setOpen(true); // open dialog
+  };
 
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  const handleConfirmLogout = () => {
+    setOpen(false);
+    onLogout(); // call parent logout
+  };
   return (
-    <AppBar position="sticky" style={{backgroundColor:'#000000',marginBottom:'40px' }}>
+    <>
+      <AppBar position="sticky" style={{backgroundColor:'#000000',marginBottom:'40px' }}>
       <Toolbar sx={{display:'flex', alignItems:'center',justifyContent:'space-between',flexWrap:'wrap'}}>
         <Typography variant="h6">
           <img src="images/cashilogo.png" alt="logo" height="30px" width="auto" />
@@ -17,7 +33,7 @@ const navigate = useNavigate();
         <Box sx={{display:'flex',alignItems:'center',justifyContent:'space-between', flexWrap:'wrap'}}>
 
       
-           <Grid sx={{display:'flex', alignItems:'center',justifyContent:'space-between', flexWrap:'wrap' ,borderRadius:'6px', mx:'10px', px:'7px', py:'5px',
+           {/* <Grid sx={{display:'flex', alignItems:'center',justifyContent:'space-between', flexWrap:'wrap' ,borderRadius:'6px', mx:'10px', px:'7px', py:'5px',
             backgroundColor:'#ffd351', color:'#000000', my:'5px'
            }}>
             
@@ -25,6 +41,17 @@ const navigate = useNavigate();
               <Info />  Insufficient balance. Please Top up your wallet. 
                <Button sx={{borderRadius:'25px', background:'#000000', color:'#dbdbdb', fontSize:'12px', mx:1}}
                 onClick={()=> navigate('/wallet')} >Top up now</Button>
+            </Typography>
+           
+           </Grid> */}
+           <Grid sx={{display:'flex', alignItems:'center',justifyContent:'space-between', flexWrap:'wrap' ,borderRadius:'6px', mx:'10px', px:'7px', py:'5px',
+             backgroundColor:' #f1c12d', color:'#000', my:'5px'
+           }}>
+            
+            <Typography sx={{margin:'8px', my:'0px', mx:'5px'}}>
+              <Celebration />  You’ve received a Welcome Balance of ₹500!
+               <Button sx={{borderRadius:'25px', background:'#000000', color:'#ffffff', fontSize:'12px', mx:1}}
+                onClick={()=> navigate('/wallet')} >Claim it now</Button>
             </Typography>
            
            </Grid>
@@ -51,12 +78,42 @@ const navigate = useNavigate();
            </Typography> */}
          <IconButton sx={{background: 'linear-gradient(195deg, #66BB6A, #43A047)', color:'#ffffff', borderRadius:'6px'
           , ml:'10px',my:'5px',
-         }} onClick={onLogout}>
+         }} onClick={handleLogoutClick}>
           <LogoutIcon sx={{ fontSize:'20px'}} />
         </IconButton>
         </Box>
       </Toolbar>
     </AppBar>
+
+    {/* Logout Confirmation Dialog */}
+      <Dialog open={open} onClose={handleClose}>
+         <Card sx={{width:'20rem'}}>
+              <Box sx={{display:'flex',justifyContent:'center', background:'linear-gradient(195deg, #49a3f1, #1A73E8)', py:2,
+                borderBottomLeftRadius:'12px',borderBottomRightRadius:'12px', boxShadow: 'rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px'
+              }}>
+              <WarningAmber sx={{fontSize:'48px', color:'#ffffff'}}/>
+            </Box>
+           <Typography sx={{p:3}}>
+       
+            <Typography sx={{color:'#2d2c2cff', textAlign:'center', fontSize:'18px'}}> Confirm Logout
+            Please try to resubmit.</Typography> 
+            </Typography>
+        </Card>
+        <DialogContent>
+          <DialogContentText>
+            Are you sure you want to log out?
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose} color="inherit">
+            Cancel
+          </Button>
+          <Button onClick={handleConfirmLogout} color="error" variant="contained" autoFocus>
+            Logout
+          </Button>
+        </DialogActions>
+      </Dialog></>
+  
   );
 }
 

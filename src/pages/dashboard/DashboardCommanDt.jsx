@@ -1,10 +1,7 @@
-// DashboardCommanDt.jsx
-import * as React from 'react';
 import {
   DataGrid,
   gridPageCountSelector,
   gridPageSelector,
-  useGridApiContext,
   useGridSelector,
   useGridApiRef
 } from '@mui/x-data-grid';
@@ -16,7 +13,6 @@ import {
   Pagination,
   PaginationItem,
   useMediaQuery,
-  Checkbox
 } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
@@ -52,7 +48,7 @@ export default function DashboardCommanDt({ title, icon, columns, rows, toolbar,
   const navigate = useNavigate();
   const apiRef = useGridApiRef();
   const isMobile = useMediaQuery('(max-width:768px)');
-  const [selectedRows, setSelectedRows] = useState([]);
+
   const [paginationModel, setPaginationModel] = useState({
     pageSize: PAGE_SIZE,
     page: 0,
@@ -63,16 +59,16 @@ export default function DashboardCommanDt({ title, icon, columns, rows, toolbar,
     if (isMobile && apiRef.current) {
       apiRef.current.autosizeColumns({ includeHeaders: true });
     }
-  }, [isMobile]);
+  }, [isMobile, apiRef]);
 
   return (
     <Container>
-       <Box sx={{ display: 'flex', justifyContent: 'end', mb: 2 }}>
+       <Box sx={{ display: 'flex', justifyContent: 'start', mb: 2 }}>
       
         <Button
           variant="contained"
           sx={{ backgroundColor: '#000000', color: '#ffffff' }}
-          onClick={() => navigate('/dashboard')}
+          onClick={() =>  navigate(-1)}
         >
           Back
         </Button>
@@ -95,7 +91,7 @@ export default function DashboardCommanDt({ title, icon, columns, rows, toolbar,
       </Typography>
 
       {/* Back Button */}
-      <Box sx={{ mb: 2 }}>
+      <Box sx={{ mb: 2 , display:'flex', justifyContent:'end'}}>
         <Box>{toolbar}</Box>
       </Box>
 
@@ -110,9 +106,11 @@ export default function DashboardCommanDt({ title, icon, columns, rows, toolbar,
           paginationModel={paginationModel}
           onPaginationModelChange={setPaginationModel}
           pageSizeOptions={[PAGE_SIZE]}
+         
           slots={{
             pagination: () => <CustomPagination apiRef={apiRef} isMobile={isMobile} />,
           }}
+           getRowHeight={() => 'auto'} 
           sx={{
              '& .MuiDataGrid-cell': {
                whiteSpace: 'normal',     // Allow wrapping
@@ -146,9 +144,7 @@ export default function DashboardCommanDt({ title, icon, columns, rows, toolbar,
             justifyContent: "space-between",
           }}
         >
-          <Typography variant="body2">
-            {selectedRows.length} row(s) selected
-          </Typography>
+         
         </Box>
       )}
       </Box>

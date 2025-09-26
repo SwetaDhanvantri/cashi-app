@@ -4,8 +4,9 @@ import { DataGrid, gridPageCountSelector, gridPageSelector, useGridSelector, use
 import { Box, Button, Container, Typography, Pagination, PaginationItem, useMediaQuery } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import { callPostApi } from '../../components/API/ApiCallFunction';
-import ReusableDialog from '../CommanComponents/ReusableDialog';
+import campimg from '../../assets/marketing.png'
+// import { callPostApi } from '../../components/API/ApiCallFunction';
+// import ReusableDialog from '../CommanComponents/ReusableDialog';
 
 function CustomPagination({ apiRef, isMobile }) {
   const page = useGridSelector(apiRef, gridPageSelector);
@@ -116,7 +117,7 @@ const rows = [
   return (
     <Container>
         {/* Back Button */}
-      <Box sx={{ display: 'flex', justifyContent: 'flex-end', mb: 2 }}>
+      <Box sx={{ display: 'flex', justifyContent: 'start', mb: 2 }}>
         <Button
           variant="contained"
           sx={{ backgroundColor: '#000000', color: '#ffffff' }}
@@ -124,6 +125,7 @@ const rows = [
         >
           Back
         </Button>
+       
       </Box>
       {/* Title */}
       <Typography
@@ -141,8 +143,16 @@ const rows = [
       >
        Campaign List
       </Typography>
-
-    
+       <Box sx={{ display: 'flex', justifyContent: 'end', mb: 2 }}>
+         <Button
+          variant="contained"
+          sx={{ background:'linear-gradient(195deg, #49a3f1, #1A73E8)', color: '#ffffff'}}
+          onClick={() => navigate('/totalcustomer')}
+        >
+         <img src={campimg} alt="campaign" style={{height:'25px', width:'auto', marginRight:'5px'}} /> New Campaign
+        </Button>
+       </Box>
+     
 
       {/* DataGrid */}
       <Box sx={{ height: 'auto', maxHeight: 500, width: '100%' }}>

@@ -77,7 +77,7 @@ export default function PriceTable() {
   ];
 
   const rows = [
-    { id: 1, invoice: 'Invoice-2025-Aug-12', from: "10-08-2025", to: '15-08-2025', amount: '30', event: '30' },
+    
   ];
 
   // Auto-size columns on mobile only
@@ -85,7 +85,7 @@ export default function PriceTable() {
     if (isMobile && apiRef.current) {
       apiRef.current.autosizeColumns({ includeHeaders: true });
     }
-  }, [isMobile]);
+  }, [isMobile, apiRef]);
 
   return (
     <Box sx={{ height: 'auto', maxHeight: 500, width: '100%' }}>

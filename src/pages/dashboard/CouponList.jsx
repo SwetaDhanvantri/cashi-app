@@ -1,16 +1,19 @@
 
 import * as React from 'react';
 import { DataGrid, gridPageCountSelector, gridPageSelector, useGridSelector, useGridApiRef } from '@mui/x-data-grid';
-import { Box, Button, Container, Typography, Pagination, PaginationItem, useMediaQuery } from '@mui/material';
+import { Box, Button, Container, Typography, Pagination, PaginationItem, useMediaQuery, Dialog, DialogTitle, DialogContent, DialogActions } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { callPostApi } from '../../components/API/ApiCallFunction';
-import ReusableDialog from '../CommanComponents/ReusableDialog';
+import { Add, CurrencyRupee, Info } from '@mui/icons-material';
+import Status from './StatusChip';
+import ImagePreview from '../CommanComponents/ImagePreview';
+import FullImgPreview from '../CommanComponents/FullImgPreview';
+import GradientLoader from '../CommanComponents/GradientLoader';
 
 function CustomPagination({ apiRef, isMobile }) {
   const page = useGridSelector(apiRef, gridPageSelector);
   const pageCount = useGridSelector(apiRef, gridPageCountSelector);
-  const [open, setOpen] = useState(false);
   return (
     <Pagination
       color="primary"
@@ -38,6 +41,9 @@ export default function CouponList() {
   const navigate = useNavigate();
   const apiRef = useGridApiRef();
   const [datar, setDatar] = useState([]);
+    const [loading, setLoading] = useState(false);
+  const [open, setOpen] = useState();
+  const [selectedRow, setSelectedRow] = useState(null);
   const isMobile = useMediaQuery('(max-width:768px)');
   const [paginationModel, setPaginationModel] = useState({
     pageSize: PAGE_SIZE,
@@ -46,15 +52,17 @@ export default function CouponList() {
   useEffect(()=> {
   couponListApi();
   }, []);
+
   // Autosize on mount and when screen size changes
   useEffect(() => {
     if (isMobile && apiRef.current) {
       apiRef.current.autosizeColumns({ includeHeaders: true });
     }
-  }, [isMobile]);
+  }, [isMobile, apiRef]);
 
   // Offer List API
 const couponListApi = async () => {
+  setLoading(true)
   const payload = { mod: "CASHI_OFFER_LIST", data_arr: { store_id: "1020" } };
   const apiResult = await callPostApi("cashi-offer", payload);
 
@@ -62,6 +70,7 @@ const couponListApi = async () => {
   console.log("response:", JSON.stringify(apiResult));
 
   if (apiResult.status === "200" && Array.isArray(apiResult.data?.success)) {
+     setLoading(false)
     const formattedData = apiResult.data.success.map((item, index) => ({
       id: index + 1,
       offerId: item.offer_id || "NA",
@@ -80,10 +89,10 @@ const couponListApi = async () => {
   }
 };
 
-
  const columns = [
-  { field: 'id', headerName: 'Sr no.', flex: isMobile ? undefined : 0.5},
+    { field: 'id', headerName: 'Sr no.', flex: isMobile ? undefined : 0.5},
   { field: 'ctitle', headerName: 'Coupon Title',  flex: isMobile ? undefined : 1,},
+   
   {
   field: "offimg",
   headerName: "Offer Img",
@@ -93,26 +102,67 @@ const couponListApi = async () => {
       return <Typography variant="body2">No Image</Typography>;
     }
     return (
-      <img
-        src={params.value}
-        alt="offer"
-        style={{ width: 50, height: 50, objectFit: "cover", borderRadius: 4 }}
-      />
+        <FullImgPreview src={params.value} />
     );
   },
 },
-  { field: 'cvalue', headerName: 'Coupon Value', flex: isMobile ? undefined : 1 },
+  { field: 'cvalue', headerName: 'Coupon value', flex: isMobile ? undefined : 1 },
   { field: 'activedate', headerName: 'Active Date', flex: isMobile ? undefined : 1 },
   { field: 'expdate', headerName: 'Expiry Date', flex: isMobile ? undefined : 1 },
-  { field: 'shortd', headerName: 'Short Description', flex: isMobile ? undefined : 1 },
-  { field: 'longd', headerName: 'Long Description', flex: 2, },
- ]
+ 
+
+
+  // { field: 'code', headerName: 'Coupon Code', flex: isMobile ? undefined : 1,
+  //    renderCell: (params) => (
+  //              <span style={{color:'#37ad52', fontWeight:600}}>
+  //                {params.value}
+  //              </span>
+  //              ),
+  //  },
+ 
+  // { field: 'minamount', headerName: 'Min Amount', flex: isMobile ? undefined : 1,
+  //    renderCell: (params) => (
+  //              <>
+  //                <CurrencyRupee sx={{ verticalAlign: 'middle', mr: 0.5, fontSize:'16px', marginBottom:'2px' }} />
+  //                {params.value}
+  //              </>
+  //              ),
+  //  },
+ 
+   {
+    field: 'generateIssued',
+    headerName: 'Generate/Issued',
+    flex: isMobile ? undefined : 1,
+    renderCell: (params) => `${params.row.generate} / ${params.row.issued}`,
+  },
+  { field: 'redemption', headerName: 'Redemption',flex: isMobile ? undefined : 1,
+     renderCell: (params) => (
+      <>
+      <span onClick={() => navigate('/redeemed')} style={{cursor:'pointer'}}>{params.value}</span>
+      </>
+     )
+  },
+   { field: 'status', headerName: 'Status', flex: isMobile ? undefined : 1, minWidth: 140, 
+     renderCell: (params) => <Status status={params.value} />,
+  },
+  {
+    field:'action', headername:'Action', flex: isMobile ? undefined : 1, minWidth: 140, 
+     renderCell: (params) => 
+      <Button onClick={() => {
+            setSelectedRow(params.row); // store row
+            setOpen(true);              // open dialog
+          }}><Info /></Button>
+  }
+  
+];
+
 
 
   return (
     <Container>
+        {loading && <GradientLoader text="Loading" />}        {/* // loader */}
         {/* Back Button */}
-      <Box sx={{ display: 'flex', justifyContent: 'flex-end', mb: 2 }}>
+      <Box sx={{ display: 'flex', justifyContent: 'flex-start', mb: 2 }}>
         <Button
           variant="contained"
           sx={{ backgroundColor: '#000000', color: '#ffffff' }}
@@ -137,7 +187,15 @@ const couponListApi = async () => {
       >
        Coupon List
       </Typography>
-
+      <Box sx={{ display: 'flex', justifyContent: 'flex-end', mb: 2 }}>
+        <Button
+          variant="contained"
+          sx={{ background:'linear-gradient(195deg, #49a3f1, #1A73E8)', color: '#ffffff' }}
+          onClick={() => navigate('/createcoupon')}
+        >
+         <Add/> Create Coupon
+        </Button>
+      </Box>
     
 
       {/* DataGrid */}
@@ -150,6 +208,7 @@ const couponListApi = async () => {
           paginationModel={paginationModel}
           onPaginationModelChange={setPaginationModel}
           pageSizeOptions={[PAGE_SIZE]}
+           getRowHeight={() => 'auto'} 
           slots={{
             pagination: () => <CustomPagination apiRef={apiRef} isMobile={isMobile} />,
           }}
@@ -160,6 +219,7 @@ const couponListApi = async () => {
                wordBreak: 'break-word', 
                display: 'flex',
               alignItems: 'center', // Vertically center content
+              padding:'5px',
               gap: '4px'},
             '& .MuiDataGrid-columnHeaders': {
               backgroundColor: '#f0f0f0',
@@ -176,6 +236,42 @@ const couponListApi = async () => {
           showToolbar
         />
       </Box>
+
+      <Dialog open={open} onClose={() => setOpen(false)} maxWidth="sm" fullWidth sx={{overflowY:'auto'}}>
+        
+        <Box>
+          {selectedRow ? (
+            <>
+             <DialogTitle sx={{background:'linear-gradient(195deg, #49a3f1, #1A73E8)', color:'#fff'}}>
+           <Typography variant="h6" gutterBottom >
+                {selectedRow.ctitle}
+              </Typography>
+        </DialogTitle>
+        <DialogContent sx={{py:1}}>
+           <Typography><b>Coupon Value:</b> {selectedRow.cvalue}</Typography>
+              <Typography><b>Short Description:</b> {selectedRow.shortd}</Typography>
+              <Typography><b>Long Description:</b> {selectedRow.longd}</Typography>
+              {selectedRow.offimg && selectedRow.offimg !== "NA" && (
+                <Box mt={2}>
+                  <ImagePreview src={selectedRow.offimg} />
+
+                </Box>
+              )}
+             </DialogContent>
+             <DialogActions>
+                <Box sx={{ textAlign: "right", mt: 2 }}>
+                <Button onClick={() => setOpen(false)} variant="contained">
+                  Close
+                </Button>
+              </Box>
+             </DialogActions>
+              
+            </>
+          ) : (
+            <Typography>No details available</Typography>
+          )}
+        </Box>
+      </Dialog>
     </Container>
   );
 }

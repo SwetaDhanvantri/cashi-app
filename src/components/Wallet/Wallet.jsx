@@ -9,13 +9,14 @@ export default function Wallet() {
 
   return (
     <Container>
+       <Box sx={{ display: 'flex', justifyContent: 'flex-start', mb: 2 }}>
+         <Button variant="contained" sx={{ backgroundColor: '#000000', color: '#ffffff' }}
+          onClick={() =>  navigate('/dashboard')} > Back </Button>
+      </Box>
       <Typography variant="h6"  gutterBottom sx={{ background: 'linear-gradient(195deg, #49a3f1, #1A73E8)',
         p: 1, color: '#ffffff',  borderRadius: '4px', mb: 3,}}>
        <AccountBalanceWallet/>  Wallet </Typography>
-       <Box sx={{ display: 'flex', justifyContent: 'flex-end', mb: 2 }}>
-         <Button variant="contained" sx={{ backgroundColor: '#000000', color: '#ffffff' }}
-          onClick={() => navigate('/dashboard')} > Back </Button>
-      </Box>
+      
 
        <Box sx={{backgroundColor:'#f2f2f2', borderRadius:'8px',
         boxShadow: 'rgba(9, 30, 66, 0.25) 0px 1px 1px, rgba(9, 30, 66, 0.13) 0px 0px 1px 1px;'}}>
@@ -27,7 +28,7 @@ export default function Wallet() {
              <Typography sx={{mb:1, color:'#888'}}>Wallet Balance</Typography>
              <Box sx={{display:'flex', alignItems:'center'}}>
               <CurrencyRupee sx={{fontSize:'35px',color:'#0a32d4ff'}} /> 
-              <Typography variant="h4" sx={{color:'#0a32d4ff'}}>188.76</Typography>
+              <Typography variant="h4" sx={{color:'#0a32d4ff'}}>00.0</Typography>
               </Box> 
              <Box sx={{display:'flex', my:3}}>
               <Button variant="contained" sx={{background:'linear-gradient(195deg, #66BB6A, #43A047)'}}>Add Balance</Button>
@@ -40,7 +41,7 @@ export default function Wallet() {
                     <span><InfoOutline sx={{fontSize:'18px', mx:1}}/></span></Typography>
                   <Box sx={{display:'flex', alignItems:'center'}}>
                     <CurrencyRupee sx={{fontSize:'35px',color:'#098665'}} /> 
-                    <Typography variant="h4" sx={{color:'#098665'}}>98.76</Typography>
+                    <Typography variant="h4" sx={{color:'#098665'}}>00.00</Typography>
                 </Box> 
            </Grid>
          </Grid>

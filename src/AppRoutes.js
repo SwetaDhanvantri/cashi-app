@@ -1,9 +1,9 @@
 // AppRoutes.js
-import React, { useState } from "react";
+import { useState } from "react";
 import { Routes, Route, useNavigate, useLocation } from "react-router-dom";
 import Login from "./pages/Login";
 import Dashboard from "./pages/dashboard/Dashboard";
-import { CouponData, IssuedCouponDt, RedeemedCouponDt, TotalCustomerDt, TotalValueDt } from "./pages/dashboard/ListingTables";
+import {IssuedCouponDt, RedeemedCouponDt, TotalCustomerDt, TotalValueDt } from "./pages/dashboard/ListingTables";
 import Navbar from "./components/Navbar/Navbar";
 import CreateCouponDialog from "./pages/dashboard/CreateCouponDialog";
 import CreatePromotionDialog from "./pages/dashboard/CreatePromotionDialog";
@@ -56,8 +56,16 @@ const AppRoutes = () => {
 
   return (
     <Routes>
-      <Route path="/" element={<Login onLogin={handleLogin} />} />
-      <Route path="*" element={<Layout onLogout={handleLogout} />} />
+      <Route
+        path="*"
+        element={
+          isAuthenticated ? (
+            <Layout onLogout={handleLogout} />
+          ) : (
+            <Login onLogin={handleLogin} />
+          )
+        }
+      />
     </Routes>
   );
 };
