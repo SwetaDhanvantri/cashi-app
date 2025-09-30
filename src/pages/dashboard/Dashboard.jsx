@@ -5,7 +5,6 @@ import { useNavigate } from "react-router-dom";
 import campimg from '../../assets/promotion.png'
 function Dashboard() {
 const user = JSON.parse(sessionStorage.getItem("user") || "{}");
-console.log(user.store_info.store_id); 
 
 const navigate = useNavigate();
   return (
@@ -91,11 +90,11 @@ const navigate = useNavigate();
                  </Grid>
                 </Grid>
                 
-                  <Box position="absolute" bottom="0px" left="0px" width="100%" sx={{ textAlign:'center'}}>
+                  {/* <Box position="absolute" bottom="0px" left="0px" width="100%" sx={{ textAlign:'center'}}>
                     <Divider sx={{borderColor:'#6c757d;'}} />
                     <Button sx={{fontWeight:'600'}} onClick={() => navigate('/totalvalue')}
                     >View More <ArrowCircleRight sx={{fontSize:'20px', marginLeft:"8px", marginBottom:'3px'}} /> </Button>
-            </Box>
+                     </Box> */}
             </Card>
             </Grid>
             <Grid size={{ xs: 12,sm:12, md: 6}} position="relative" sx={{boxShadow: 'rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px'}}>

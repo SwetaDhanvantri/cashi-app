@@ -201,8 +201,9 @@ const handleSubmit = async () => {
             helperText={errors.offerTitle}
           />
             <InfoPopover 
-             title="Use Google's location service?" 
-             description="Let Google help apps determine location." 
+             title="Coupon Title" 
+             description="Choose a name for your coupon. 
+             This name will be visible to customers and can also be used to filter and track issued and redeemed coupons." 
            />
 
         </Grid>
@@ -217,8 +218,9 @@ const handleSubmit = async () => {
             onChange={(e) => updateField('minAmount', e.target.value)}
           />
         <InfoPopover 
-            title="Use Google's location service?" 
-            description="Let Google help apps determine location." 
+            title="Min Order Amount" 
+            description=" Set the minimum order amount required for the coupon to be activated for the customer. 
+            This helps you define customer segments based on their shopping value compared to other stores" 
           />
 
         </Grid>
@@ -231,8 +233,10 @@ const handleSubmit = async () => {
             onChange={(e) => updateField('maxAmount', e.target.value)}
           />
          <InfoPopover 
-          title="Use Google's location service?" 
-          description="Let Google help apps determine location." 
+          title="No. of Coupon" 
+          description=" Enter the number of coupons you wish to generate. Only the specified number of coupons will be issued to
+           prospective customers.
+" 
         />
 
         </Grid>
@@ -261,8 +265,9 @@ const handleSubmit = async () => {
             helperText={errors.couponValue}
           />
           <InfoPopover 
-            title="Use Google's location service?" 
-            description="Let Google help apps determine location." 
+            title="Coupon Value" 
+            description="Set the value of the coupon you wish to offer. You can choose a fixed amount or a percentage off the total cart value (total shopping).
+" 
           />
 
           </Typography>
@@ -280,8 +285,8 @@ const handleSubmit = async () => {
             helperText={errors.shortDesc}
           />
           <InfoPopover 
-             title="Use Google's location service?" 
-             description="Let Google help apps determine location." 
+             title="Short Description" 
+             description="Write a brief description of the coupon. This will be visible to customers when they view the coupon details." 
            />
 
         </Grid>
@@ -299,16 +304,21 @@ const handleSubmit = async () => {
             helperText={errors.longDesc}
           />
          <InfoPopover 
-            title="Use Google's location service?" 
-            description="Let Google help apps determine location." 
+            title="Long Description" 
+            description="Provide a detailed description of the coupon. This information will help customers understand the benefits and terms of the coupon." 
           />
 
         </Grid>
 
         {/* Sliders */}
         <Grid item  size={{ xs: 12,sm:12, md: 6,  }} sx={{px:1}}>
-          <Typography variant="subtitle1" sx={{ mb: 1 }}>
-            Distribution Bid <Info sx={{ fontSize: 20 ,  color:'#878787ff'}} />
+          <Typography variant="subtitle1" sx={{ mb: 1, display:'flex', alignItems:'center' }}>
+            Distribution Bid 
+             <InfoPopover 
+            title="Distribution Bid " 
+            description="Set the amount required to generate and distribute the coupon to prospective customers.
+             This is the cost per coupon issued. A higher bid increases the likelihood of coupon distribution." 
+          />
           </Typography>
           <Slider
             min={5}
@@ -321,11 +331,17 @@ const handleSubmit = async () => {
             valueLabelDisplay="auto"
           />
           {errors.distributionBid && <Typography color="error">{errors.distributionBid}</Typography>}
+          
         </Grid>
 
         <Grid item  size={{ xs: 12,sm:12, md: 6,  }} sx={{px:1}}>
-          <Typography variant="subtitle1" sx={{ mb: 1 }}>
-            Redemption value <Info sx={{ fontSize: 20 , color:'#878787ff'}} />
+          <Typography variant="subtitle1"  sx={{ mb: 1, display:'flex', alignItems:'center' }}>
+            Redemption value 
+              <InfoPopover 
+            title="Redemption value" 
+            description="This is the amount that CASHI will charge when the customer redeems the coupon at your store. A higher redemption value increases the likelihood of redemption,
+             as the system will promote it to customers more actively" 
+          />
           </Typography>
           <Slider
             min={15}
@@ -338,6 +354,7 @@ const handleSubmit = async () => {
             valueLabelDisplay="auto"
           />
            {errors.redemptionBid && <Typography color="error">{errors.redemptionBid}</Typography>}
+          
         </Grid>
         
         {/* Dates */}
@@ -377,7 +394,12 @@ const handleSubmit = async () => {
           />
         </Grid>
           <Grid item size={{ xs: 12,sm:12, md: 6,  }}>
-            <Typography gutterBottom>Offer Logo</Typography>
+            <Typography  sx={{display:'flex', alignItems:'center'}}>Offer Artwork 
+               <InfoPopover 
+            title="Offer Artwork " 
+            description="This image will be displayed on the Cashi App. For optimal resolution, use a 1x1 aspect ratio in PNG format" 
+          />
+            </Typography>
             <Button variant="outlined" component="label">
               {imageFile ? imageFile.name : "Upload Image"}
               <input type="file" accept="image/*" hidden 

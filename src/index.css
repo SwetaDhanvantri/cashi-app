@@ -7,9 +7,30 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-::-webkit-slider-thumb{
-  width: 4px;
-  color: #000000;
+/* For Chrome, Edge, Safari */
+::-webkit-scrollbar {
+  width: 8px;            /* width of vertical scrollbar */
+  height: 8px;           /* height of horizontal scrollbar */
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;   /* background of scrollbar track */
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(195deg, #49a3f1, #1A73E8); /* scrollbar handle */
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #1A73E8;   /* darker on hover */
+}
+
+/* For Firefox */
+* {
+  scrollbar-width: thin;             /* makes it thinner */
+  scrollbar-color: #1A73E8 #f1f1f1;  /* thumb color | track color */
 }
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',

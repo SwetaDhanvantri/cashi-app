@@ -273,37 +273,16 @@ function ReusableDialog({ open, onClose }) {
                       style={{ background: "linear-gradient(195deg, #49a3f1, #1A73E8)",
                         padding: "10px 15px", display: "flex", alignItems: "center", margin:0 }}>
                       <img src={imgdrak}
-                        alt="img"
-                        style={{ height: "30px", width: "auto", background: "#fff", borderRadius: "50%", padding: "4px 2px", }} />
+                        alt="img" style={{ height: "30px", width: "auto", background: "#fff", borderRadius: "50%", padding: "4px 2px", }} />
                       <Typography variant="h6" sx={{ color: "#fff", ml: 1 }}> Cashi </Typography>
                     </CardTitle>
-                    <CardBody style={{
-                        padding: "10px 20px",
-                        backgroundColor:'#eeeeee',
-                        minHeight: "250px",
-                      }}
-                    >
-                      <Box
-                        sx={{
-                          backgroundColor: "#fff",
-                          p: 1,
-                          borderRadius: "8px",
-                          boxShadow:
-                            "rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(27, 31, 35, 0.1) 0px 0px 0px 1px",
-                        }}
-                      >
+                    <CardBody style={{  padding: "10px 20px", backgroundColor:'#eeeeee', minHeight: "250px",}}>
+                      <Box  sx={{ backgroundColor: "#fff", p: 1, borderRadius: "8px",
+                          boxShadow: "rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(27, 31, 35, 0.1) 0px 0px 0px 1px", }} >
                         {imageMailPreview && (
                           <Box sx={{ mb: 2 }}>
-                            <img
-                              src={imageMailPreview}
-                              alt="Preview"
-                              style={{
-                                width: "100%",
-                                maxHeight: "200px",
-                                objectFit: "contain",
-                                borderRadius: "8px",
-                              }}
-                            />
+                            <img src={imageMailPreview} alt="Preview"
+                              style={{ width: "100%", maxHeight: "200px", objectFit: "contain", borderRadius: "8px", }} />
                           </Box>
                         )}
                         {contentMailPreview && (
@@ -319,90 +298,37 @@ function ReusableDialog({ open, onClose }) {
          )}
            {channel === "sms" && (
             <Box className="hor-tab1"
-           sx={{
-              display: "flex",
-              flexDirection: isMobile ? "column" : "row",
-              border: 1,
-              borderColor: "divider",
-            }}
-          >
-            <Tabs
-              orientation={isMobile ? "horizontal" : "vertical"}
-              value={tab}
-              onChange={handleChangeTab}
-              sx={{ minWidth: isMobile ? "100%" : 150 }}
-            >
+             sx={{ display: "flex", flexDirection: isMobile ? "column" : "row", border: 1, borderColor: "divider", }} >
+            <Tabs orientation={isMobile ? "horizontal" : "vertical"} value={tab} onChange={handleChangeTab}
+              sx={{ minWidth: isMobile ? "100%" : 150 }} >
               <Tab label="Template 1" />
-              
             </Tabs>
 
             {/* Template 1 */}
             <TabPanel value={tab} index={0}>
               <Grid container spacing={2}>
                 <Grid size={{ xs: 12,sm:12, md: 7,  }}>
-                  <TextField
-                    fullWidth
-                    label="Campaign Name"
-                    value={campTitleSmsPreview}
-                    onChange={(e) => setCampTitleSmsPreview(e.target.value)}
-                    sx={{ my: 1 }}
-                  />
-                  <TextField
-                    fullWidth
-                    label="Content"
-                    value={contentSmsPreview}
+                  <TextField fullWidth label="Campaign Name" value={campTitleSmsPreview}
+                  onChange={(e) => setCampTitleSmsPreview(e.target.value)} sx={{ my: 1 }} />
+                  <TextField fullWidth label="Content" value={contentSmsPreview}
                     onChange={(e) => setContentSmsPreview(e.target.value)}
-                    multiline
-                    minRows={5}
-                    sx={{ my: 1 }}
-                  />
-                 
-                </Grid>
+                    multiline minRows={5} sx={{ my: 1 }} />
+                 </Grid>
 
                 <Grid size={{ xs: 12,sm:12, md: 5,  }}>
                   <Typography variant="h6">Preview</Typography>
                   <Card>
-                    <CardTitle
-                      style={{
-                        background: "linear-gradient(195deg, #49a3f1, #1A73E8)",
-                        padding: "10px 15px",
-                        display: "flex",
-                        alignItems: "center",
-                        margin:0
-                      }}
-                    >
-                      <img
-                        src={imgdrak}
-                        alt=""
-                        style={{
-                          height: "30px",
-                          width: "auto",
-                          background: "#fff",
-                          borderRadius: "50%",
-                          padding: "4px 2px",
-                         
-                        }}
-                      />
+                    <CardTitle style={{ background: "linear-gradient(195deg, #49a3f1, #1A73E8)",
+                        padding: "10px 15px", display: "flex", alignItems: "center", margin:0 }} >
+                      <img src={imgdrak} alt="img" style={{ height: "30px", width: "auto",
+                          background: "#fff", borderRadius: "50%",padding: "4px 2px",}} />
                       <Typography variant="h6" sx={{ color: "#fff", ml: 1 , mb:0}}>
                         Cashi
                       </Typography>
                     </CardTitle>
-                    <CardBody
-                      style={{
-                        padding: "10px 20px",
-                      backgroundColor:'#a6cff3ff',
-                        minHeight: "250px",
-                      }}
-                    >
-                      <Box
-                        sx={{
-                          backgroundColor: "#fff",
-                          p: 1,
-                          borderRadius: "8px",
-                          boxShadow:
-                            "rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(27, 31, 35, 0.1) 0px 0px 0px 1px",
-                        }}
-                      >
+                    <CardBody style={{ padding: "10px 20px", backgroundColor:'#a6cff3ff', minHeight: "250px",}}>
+                      <Box sx={{ backgroundColor: "#fff", p: 1, borderRadius: "8px",
+                          boxShadow: "rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(27, 31, 35, 0.1) 0px 0px 0px 1px",}}>
                        
                         {contentSmsPreview && (
                           <Typography>{contentSmsPreview}</Typography>
@@ -413,20 +339,14 @@ function ReusableDialog({ open, onClose }) {
                 </Grid>
               </Grid>
             </TabPanel>
-           
-         
           </Box>
            )}
         </DialogContentText>
       </DialogContent>
 
       <DialogActions>
-        <Button onClick={onClose} color="error">
-          Cancel
-        </Button>
-        <Button onClick={() => navigate('/campaignList')} variant="contained">
-          Save
-        </Button>
+        <Button onClick={onClose} color="error"> Cancel </Button>
+        <Button onClick={() => navigate('/campaignList')} variant="contained"> Save </Button>
       </DialogActions>
     </Dialog>
   );

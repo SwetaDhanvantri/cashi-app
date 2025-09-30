@@ -10,7 +10,7 @@ import CreatePromotionDialog from "./pages/dashboard/CreatePromotionDialog";
 import Wallet from "./components/Wallet/Wallet";
 import CouponList from "./pages/dashboard/CouponList";
 import CampaignList from "./pages/dashboard/CampaignList";
-
+import Footer from "./components/Footer/Footer"
 
 
 const Layout = ({ onLogout }) => {
@@ -19,9 +19,15 @@ const Layout = ({ onLogout }) => {
   const shouldHideNavbar = hideNavbarOn.includes(location.pathname);
 
   return (
-    <>
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        minHeight: "100vh", // full viewport height
+      }}>
       {!shouldHideNavbar && <Navbar onLogout={onLogout} />}
-      <Routes>
+      <div style={{ flex: 1 }}>
+          <Routes>
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/issued" element={<IssuedCouponDt />} />
         <Route path="/redeemed" element={<RedeemedCouponDt />} />
@@ -32,25 +38,29 @@ const Layout = ({ onLogout }) => {
         <Route path="/wallet" element={<Wallet />} />
         <Route path="/couponlist" element={<CouponList />} />
         <Route path="/campaignList" element={<CampaignList />} />
-        
-     
       </Routes>
-    </>
+      </div>
+    
+         {!shouldHideNavbar && <Footer />} {/* Footer appears only when Navbar is shown */}
+    </div>
   );
 };
 
 const AppRoutes = () => {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState(() => {
+    return sessionStorage.getItem('authenticated') === 'true';
+   });
   const navigate = useNavigate();
 
   const handleLogin = () => {
+    sessionStorage.setItem('authenticated', 'true');
     setIsAuthenticated(true);
     navigate("/dashboard");
   };
 
   const handleLogout = () => {
     setIsAuthenticated(false);
-    localStorage.clear();
+    sessionStorage.clear();
     navigate("/");
   };
 

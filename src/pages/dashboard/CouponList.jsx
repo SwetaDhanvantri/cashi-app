@@ -80,7 +80,11 @@ const couponListApi = async () => {
       longd: item.long_desc || "NA",
       activedate: item.offer_active || "NA",
       expdate: item.offer_expire || "NA",
-     offimg: item.offer_logo  || "NA",
+      offimg: item.offer_logo  || "NA",
+      status:  "Approved",
+      generate:"0",
+      issued:"0",
+      redemption:'0'
     }));
 
     setDatar(formattedData);
@@ -95,7 +99,7 @@ const couponListApi = async () => {
    
   {
   field: "offimg",
-  headerName: "Offer Img",
+  headerName: "Offer Image",
  flex: isMobile ? undefined : 1,
  renderCell: (params) => {
     if (!params.value || params.value === "NA") {
@@ -106,7 +110,7 @@ const couponListApi = async () => {
     );
   },
 },
-  { field: 'cvalue', headerName: 'Coupon value', flex: isMobile ? undefined : 1 },
+  { field: 'cvalue', headerName: 'Coupon value', flex: isMobile ? undefined : 1.3, align: 'center', },
   { field: 'activedate', headerName: 'Active Date', flex: isMobile ? undefined : 1 },
   { field: 'expdate', headerName: 'Expiry Date', flex: isMobile ? undefined : 1 },
  
@@ -132,10 +136,11 @@ const couponListApi = async () => {
    {
     field: 'generateIssued',
     headerName: 'Generate/Issued',
-    flex: isMobile ? undefined : 1,
+    flex: isMobile ? undefined : 1.5,
+    align: 'center',
     renderCell: (params) => `${params.row.generate} / ${params.row.issued}`,
   },
-  { field: 'redemption', headerName: 'Redemption',flex: isMobile ? undefined : 1,
+  { field: 'redemption', headerName: 'Redemption',flex: isMobile ? undefined : 1,align: 'center',
      renderCell: (params) => (
       <>
       <span onClick={() => navigate('/redeemed')} style={{cursor:'pointer'}}>{params.value}</span>
@@ -146,7 +151,7 @@ const couponListApi = async () => {
      renderCell: (params) => <Status status={params.value} />,
   },
   {
-    field:'action', headername:'Action', flex: isMobile ? undefined : 1, minWidth: 140, 
+    field:'Action', headername:'Action', flex: isMobile ? undefined : 1, minWidth: 140, 
      renderCell: (params) => 
       <Button onClick={() => {
             setSelectedRow(params.row); // store row
@@ -159,7 +164,7 @@ const couponListApi = async () => {
 
 
   return (
-    <Container>
+    <Container sx={{my:2}}>
         {loading && <GradientLoader text="Loading" />}        {/* // loader */}
         {/* Back Button */}
       <Box sx={{ display: 'flex', justifyContent: 'flex-start', mb: 2 }}>
@@ -247,10 +252,10 @@ const couponListApi = async () => {
                 {selectedRow.ctitle}
               </Typography>
         </DialogTitle>
-        <DialogContent sx={{py:1}}>
-           <Typography><b>Coupon Value:</b> {selectedRow.cvalue}</Typography>
-              <Typography><b>Short Description:</b> {selectedRow.shortd}</Typography>
-              <Typography><b>Long Description:</b> {selectedRow.longd}</Typography>
+        <DialogContent >
+           <Typography sx={{borderBottom:'1px solid #eee', py:1}}><b>Coupon Value:</b> {selectedRow.cvalue}</Typography>
+              <Typography sx={{borderBottom:'1px solid #eee',py:1}}><b>Short Description:</b> {selectedRow.shortd}</Typography>
+              <Typography sx={{borderBottom:'1px solid #eee', py:1}}><b>Long Description:</b> {selectedRow.longd}</Typography>
               {selectedRow.offimg && selectedRow.offimg !== "NA" && (
                 <Box mt={2}>
                   <ImagePreview src={selectedRow.offimg} />

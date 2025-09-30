@@ -41,7 +41,7 @@ const InfoPopover = ({ title, description }) => {
             {description}
           </Typography>
           <Box display="flex" justifyContent="flex-end" gap={2}>
-            <Button size="small" onClick={handleClose}>Cancel</Button>
+           
             <Button size="small" variant="contained" onClick={handleClose}>
               Ok
             </Button>

@@ -7,10 +7,11 @@ import { AccountBalanceWallet, Celebration, CurrencyRupee, Info, WarningAmber} f
 import { useNavigate } from "react-router-dom";
 import StoreDialog from "./StoreDialog";
 import { Card } from "react-bootstrap";
-
+import partypopper from '../../assets/partypopper.gif'
 function Navbar({ onLogout }) {
 const navigate = useNavigate();
  const [open, setOpen] = useState(false);
+ const [claimOpen, setClaimOpen] = useState(false);
  const handleLogoutClick = () => {
     setOpen(true); // open dialog
   };
@@ -23,12 +24,21 @@ const navigate = useNavigate();
     setOpen(false);
     onLogout(); // call parent logout
   };
+
+   const handleClaimClick = () => {
+    setClaimOpen(true);
+  };
+
+  const handleClaimClose = () => {
+    setClaimOpen(false);
+    navigate("/wallet"); // go to wallet page after claim
+  };
   return (
     <>
       <AppBar position="sticky" style={{backgroundColor:'#000000',marginBottom:'40px' }}>
       <Toolbar sx={{display:'flex', alignItems:'center',justifyContent:'space-between',flexWrap:'wrap'}}>
         <Typography variant="h6">
-          <img src="images/cashilogo.png" alt="logo" height="30px" width="auto" />
+          <img src="images/cashilogo.png" alt="logo" height="30px" width="auto" style={{cursor:'pointer'}} onClick={()=> {navigate('/dashboard')}} />
         </Typography>
         <Box sx={{display:'flex',alignItems:'center',justifyContent:'space-between', flexWrap:'wrap'}}>
 
@@ -48,10 +58,10 @@ const navigate = useNavigate();
              backgroundColor:' #f1c12d', color:'#000', my:'5px'
            }}>
             
-            <Typography sx={{margin:'8px', my:'0px', mx:'5px'}}>
+            <Typography sx={{margin:'8px', my:'0px', mx:'5px',}}>
               <Celebration />  You’ve received a Welcome Balance of ₹500!
                <Button sx={{borderRadius:'25px', background:'#000000', color:'#ffffff', fontSize:'12px', mx:1}}
-                onClick={()=> navigate('/wallet')} >Claim it now</Button>
+                onClick={handleClaimClick} >Claim it now</Button>
             </Typography>
            
            </Grid>
@@ -89,15 +99,11 @@ const navigate = useNavigate();
       <Dialog open={open} onClose={handleClose}>
          <Card sx={{width:'20rem'}}>
               <Box sx={{display:'flex',justifyContent:'center', background:'linear-gradient(195deg, #49a3f1, #1A73E8)', py:2,
-                borderBottomLeftRadius:'12px',borderBottomRightRadius:'12px', boxShadow: 'rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px'
+               boxShadow: 'rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px'
               }}>
               <WarningAmber sx={{fontSize:'48px', color:'#ffffff'}}/>
             </Box>
-           <Typography sx={{p:3}}>
-       
-            <Typography sx={{color:'#2d2c2cff', textAlign:'center', fontSize:'18px'}}> Confirm Logout
-            Please try to resubmit.</Typography> 
-            </Typography>
+        
         </Card>
         <DialogContent>
           <DialogContentText>
@@ -112,7 +118,35 @@ const navigate = useNavigate();
             Logout
           </Button>
         </DialogActions>
-      </Dialog></>
+      </Dialog>
+      
+      {/* Claim Success Dialog */}
+      <Dialog open={claimOpen} onClose={handleClaimClose}>
+        <DialogTitle variant="h4" sx={{textAlign:'center', fontWeight:'bold', }}>
+          Congratulations!
+         <Typography><img src={partypopper} alt="party popper" height="250px" width="auto" />
+         </Typography>
+        </DialogTitle>
+        <DialogContent>
+          <DialogContentText variant="h6" sx={{color:'#000', textAlign:'center'}}>
+            <span style={{color:'#2bbf67'}}>₹500</span> has been successfully added to your wallet.  
+            Enjoy your rewards!
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button
+            onClick={handleClaimClose}
+            variant="contained"
+            sx={{background:'linear-gradient(195deg, #66BB6A, #43A047)'}}
+            fullWidth
+          >
+            Go to Wallet
+          </Button>
+        </DialogActions>
+      </Dialog>
+      </>
+
+      
   
   );
 }

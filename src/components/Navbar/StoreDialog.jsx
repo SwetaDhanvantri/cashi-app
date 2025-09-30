@@ -9,7 +9,6 @@ import { Grid, InputAdornment, TextField } from '@mui/material';
 export default function StoreDialog() {
   const [open, setOpen] = React.useState(false);
   const user = JSON.parse(sessionStorage.getItem("user") || "{}");
-  console.log(user.store_info.store_id);
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -24,7 +23,11 @@ export default function StoreDialog() {
       <Button sx={{background:'linear-gradient(195deg, #49a3f1, #1A73E8)', px:'7px', py:'5px', borderRadius:'6px',my:'5px',
         color:'#fff'
       }} onClick={handleClickOpen}>
-          <Store />{user.store_info.store_name}
+          <Store />
+          {/* {user.store_info.store_name} */}
+           {user.store_info?.store_name?.length > 19
+    ? user.store_info.store_name.substring(0, 19) + "..."
+    : user.store_info?.store_name}
       </Button>
       <Dialog
         open={open}
@@ -68,6 +71,8 @@ export default function StoreDialog() {
                id="input-with-icon-textfield"
                label="Store Address"
                value={user.store_info.store_address}
+               multiline
+               maxRows={2}
                 InputProps={{
                readOnly: true,
                 }}

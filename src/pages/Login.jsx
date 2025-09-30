@@ -54,8 +54,6 @@ const handleSubmit = async (e) => {
          
            if (storeInfo) {
              sessionStorage.setItem("user", JSON.stringify(successData));
-            //  sessionStorage.setItem('authToken', user_info.token); 
-            //  sessionStorage.setItem('tokenExpiry', new Date().getTime() + 3600000); 
              console.log("User stored:", successData);
            }
           
@@ -77,6 +75,7 @@ const handleSubmit = async (e) => {
        }
   };
 
+ 
   return (
     
     <Box className="login" display="flex" justifyContent="center" alignItems="center" height="100vh">
@@ -91,7 +90,7 @@ const handleSubmit = async (e) => {
           value={username} onChange={(e) => setUsername(e.target.value)}
           />
           <TextField className="transparent-textfield" fullWidth margin="normal" label="Password" type="password" required variant="filled"
-           value={password}  onChange={(e) => setPassword(e.target.value)}
+           value={password}  onChange={(e) => setPassword(e.target.value)} 
            />
           <Button type="submit" variant="contained" fullWidth sx={{ mt: 2, background:'linear-gradient(195deg, #42424a, #191919)',
             color:'#ffffff',
@@ -100,7 +99,7 @@ const handleSubmit = async (e) => {
              }
           }}
             disabled={loading}>
-            {loading ? "Logging in..." : "Login"}
+            {loading ? "Logging in..." : "Login"} 
           </Button>
         </form>
       </Box>
