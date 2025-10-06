@@ -42,6 +42,9 @@ export default function StoreDialog() {
           <DialogContentText id="alert-dialog-description">
             <Grid container spacing={2}>
             {/* Offer Title */}
+            <Grid item size={{ xs: 12,sm:12, md: 12,  }} sx={{textAlign:'right'}}>
+               <img src={user.store_image[0]} alt="external-link" style={{width:'60px', marginLeft:'4px', filter: 'invert(1)'}} />
+            </Grid>
             <Grid item size={{ xs: 12,sm:12, md: 12,  }}>
               <TextField
                id="input-with-icon-textfield"
@@ -65,6 +68,8 @@ export default function StoreDialog() {
                }}
                variant="standard"
              />
+                
+
             </Grid>
                <Grid item size={{ xs: 12,sm:12, md: 12,  }}>
               <TextField

@@ -85,7 +85,7 @@ export default function PriceTable() {
     if (isMobile && apiRef.current) {
       apiRef.current.autosizeColumns({ includeHeaders: true });
     }
-  }, [isMobile, apiRef]);
+  }, [isMobile]);
 
   return (
     <Box sx={{ height: 'auto', maxHeight: 500, width: '100%' }}>

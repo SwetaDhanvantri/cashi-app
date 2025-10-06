@@ -7,8 +7,10 @@ import { AccountBalanceWallet, Celebration, CurrencyRupee, Info, WarningAmber} f
 import { useNavigate } from "react-router-dom";
 import StoreDialog from "./StoreDialog";
 import { Card } from "react-bootstrap";
-import partypopper from '../../assets/partypopper.gif'
-function Navbar({ onLogout }) {
+import partypopper from '../../../assets/partypopper.gif';
+import cashipluslogo from '../../../assets/cashipluslight.png'
+
+function DashboardPlusNavbar({ onLogout }) {
 const navigate = useNavigate();
  const [open, setOpen] = useState(false);
  const [claimOpen, setClaimOpen] = useState(false);
@@ -38,7 +40,7 @@ const navigate = useNavigate();
       <AppBar position="sticky" style={{backgroundColor:'#000000',marginBottom:'40px' }}>
       <Toolbar sx={{display:'flex', alignItems:'center',justifyContent:'space-between',flexWrap:'wrap'}}>
         <Typography variant="h6">
-          <img src="images/cashilogo.png" alt="logo" height="30px" width="auto" style={{cursor:'pointer'}} onClick={()=> {navigate('/dashboard')}} />
+          <img src={cashipluslogo} alt="logo" height="60px" width="auto" style={{cursor:'pointer'}} onClick={()=> {navigate('/dashboardplus')}} />
         </Typography>
         <Box sx={{display:'flex',alignItems:'center',justifyContent:'space-between', flexWrap:'wrap'}}>
 
@@ -114,7 +116,9 @@ const navigate = useNavigate();
           <Button onClick={handleClose} color="inherit">
             Cancel
           </Button>
-          <Button onClick={handleConfirmLogout} color="error" variant="contained" autoFocus>
+          <Button onClick={handleConfirmLogout}   variant="gradient" autoFocus sx={{background:'linear-gradient(195deg, #49a3f1, #1A73E8)',
+            color:'#ffffff'
+          }}>
             Logout
           </Button>
         </DialogActions>
@@ -151,4 +155,4 @@ const navigate = useNavigate();
   );
 }
 
-export default Navbar;
+export default DashboardPlusNavbar;

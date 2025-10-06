@@ -1,28 +1,41 @@
 import { Box, Typography, Button, Container, Card, Divider } from "@mui/material";
 import Grid from '@mui/material/Grid';
-import { Add, ArrowCircleRight, Style, LocalOffer, Widgets, Diversity3 } from "@mui/icons-material";
+import { Add, ArrowCircleRight, Style, LocalOffer, Widgets, Diversity3, QrCode, QrCode2 } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
 import campimg from '../../assets/promotion.png'
-function Dashboard() {
-const user = JSON.parse(sessionStorage.getItem("user") || "{}");
+import cashilogo from '../../assets/cashidark.png'
+import GenerateQRCode from "./QRCode/GenerateQRCode";
+import { useState } from "react";
 
+
+function DashboardPlus() {
+
+const user = JSON.parse(sessionStorage.getItem("user") || "{}");
+const [open, setOpen] = useState(false);
 const navigate = useNavigate();
   return (
     <Box>
-    
+
       
       <Box p={3}>
        
         <Container >
-            <Box display="flex" justifyContent="end">
-                 <Button variant="contained" onClick={() => navigate('/createcoupon')}> <Add /> Create Coupon </Button>
-                 <Button variant="contained" sx={{ml:1, background:'linear-gradient(195deg, #66BB6A, #43A047)'}} onClick={() => navigate('/couponlist')}> Coupon List </Button>
-                  {/* <Button variant="contained" sx={{ml:'12px', backgroundColor:'#000000', color:'#ffffff'}} 
-                  onClick={() => navigate('/createpromotion')}>
-                   <Add /> Create Promotion</Button> */}
-                   <Button className="promotion" sx={{backgroundColor:'#eee', mx:1,
+            <Box display="flex" justifyContent="space-between" flexWrap={"wrap"} >
+              <Box display="flex" alignItems="center" >
+                <Button sx={{background:'linear-gradient(195deg, #EC407A, #D81B60)', color:'#ffffff',
                     boxShadow: 'rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px'
-                   }} onClick={() => navigate('/campaignList')}><img src={campimg} alt="campaign" style={{height:'30px', width:'auto'}} /> </Button>
+                   }} onClick={()=> setOpen(true)}><Add/> Generate QR Code</Button>
+                     <GenerateQRCode open={open} onClose={()=> setOpen(false)} />
+
+                 <Button sx={{background:'linear-gradient(195deg, #42424a, #191919)', color:'#ffffff',ml:1,
+                    boxShadow: 'rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px'
+                   }} onClick={() => navigate('loadQR')}><QrCode2 sx={{mr:1}}/>QR Code List</Button>
+
+              </Box>
+                    
+                  {/* <Button onClick={()=> navigate('/dashboard')}>
+                    <img src={cashilogo} alt="cashi logo" style={{height:'30px', width:'auto'}} />
+                  </Button> */}
             </Box>
            
             <Grid container rowSpacing={6} columnSpacing={2} my={6}>
@@ -36,7 +49,7 @@ const navigate = useNavigate();
                  </Box>
                </Grid>
                <Grid size={{ xs: 12,sm:6, md: 8,}} sx={{mb:4}}>
-                 <Typography variant="h6">Issued Coupon</Typography>
+                 <Typography variant="h6">Generated QR</Typography>
                 <Typography variant="h4" >0</Typography>
                </Grid>
               
@@ -44,11 +57,11 @@ const navigate = useNavigate();
                
                 <Box position="absolute" bottom="0px" left="0px" width="100%" sx={{ textAlign:'center'}}>
                     <Divider sx={{borderColor:'#6c757d;'}} />
-                <Button sx={{fontWeight:'600'}} onClick={() => navigate('/issued')}>View More <ArrowCircleRight sx={{fontSize:'20px', marginLeft:"8px", marginBottom:'3px'}} /> </Button>
+                <Button sx={{fontWeight:'600'}} onClick={() => navigate('generatedQRdt')}>View More <ArrowCircleRight sx={{fontSize:'20px', marginLeft:"8px", marginBottom:'3px'}} /> </Button>
             </Box>
             </Card>
             </Grid>
-            <Grid size={{ xs: 12,sm:12, md: 6,}} position="relative" sx={{boxShadow: 'rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px'}}>
+            <Grid size={{ xs: 12,sm:12, md: 6}} position="relative" sx={{boxShadow: 'rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px'}}>
                 <Card className="dashcard" sx={{padding:'10px 15px', }} >
                 <Grid container spacing={2}>
                 <Grid size={{ xs: 12,sm:6, md: 4,}}>
@@ -60,7 +73,7 @@ const navigate = useNavigate();
               
                </Grid>
                   <Grid size={{ xs: 12,sm:6, md: 8,}} sx={{mb:4}}>
-                 <Typography variant="h6">Reedemed Coupon</Typography>
+                 <Typography variant="h6">Loaded QR</Typography>
                 <Typography variant="h4">0</Typography>
                
                  </Grid>
@@ -68,12 +81,12 @@ const navigate = useNavigate();
                
                  <Box position="absolute" bottom="0px" left="0px" width="100%" sx={{ textAlign:'center'}}>
                     <Divider sx={{borderColor:'#6c757d;'}} />
-                <Button sx={{fontWeight:'600'}} onClick={() => navigate('/redeemed')}
+                <Button sx={{fontWeight:'600'}} onClick={() => navigate('loadedQRdt')}
                 >View More <ArrowCircleRight sx={{fontSize:'20px', marginLeft:"8px", marginBottom:'3px'}} /> </Button>
             </Box>
             </Card>
             </Grid>
-           <Grid size={{ xs: 12,sm:12, md: 6,}} position="relative" sx={{boxShadow: 'rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px'}}>
+           <Grid size={{ xs: 12,sm:12, md: 6}} position="relative" sx={{boxShadow: 'rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px'}}>
                 <Card className="dashcard" sx={{padding:'10px 15px', }}>
                 <Grid container spacing={2}>
                 <Grid size={{ xs: 12,sm:6, md: 4,}}>
@@ -84,20 +97,20 @@ const navigate = useNavigate();
               
                </Grid>
                   <Grid size={{ xs: 12,sm:6, md: 8,}} sx={{mb:4}}>
-                 <Typography variant="h6">Total Value</Typography>
+                 <Typography variant="h6">Activated QR</Typography>
                  <Typography variant="h4">0</Typography>
                
                  </Grid>
                 </Grid>
                 
-                  {/* <Box position="absolute" bottom="0px" left="0px" width="100%" sx={{ textAlign:'center'}}>
+                  <Box position="absolute" bottom="0px" left="0px" width="100%" sx={{ textAlign:'center'}}>
                     <Divider sx={{borderColor:'#6c757d;'}} />
-                    <Button sx={{fontWeight:'600'}} onClick={() => navigate('/totalvalue')}
+                    <Button sx={{fontWeight:'600'}} onClick={() => navigate('activatedQRdt')}
                     >View More <ArrowCircleRight sx={{fontSize:'20px', marginLeft:"8px", marginBottom:'3px'}} /> </Button>
-                     </Box> */}
+                     </Box>
             </Card>
             </Grid>
-            <Grid size={{ xs: 12,sm:12, md: 6}} position="relative" sx={{boxShadow: 'rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px'}}>
+             <Grid size={{ xs: 12,sm:12, md: 6}} position="relative" sx={{boxShadow: 'rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px'}}>
                 <Card className="dashcard" sx={{padding:'10px 15px', }}><Grid container spacing={2}>
                 <Grid size={{ xs: 12,sm:6, md: 4,}}>
                  <Box className="icobox" 
@@ -115,10 +128,10 @@ const navigate = useNavigate();
             </Card>
              <Box position="absolute" bottom="0px" left="0px" width="100%" sx={{ textAlign:'center'}}>
                     <Divider sx={{borderColor:'#6c757d;'}} />
-                <Button sx={{fontWeight:'600'}} onClick={() => navigate('/totalcustomer')}
+                <Button sx={{fontWeight:'600'}} onClick={() => navigate('totalCustomerPlusDt')}
                 >View More <ArrowCircleRight sx={{fontSize:'20px', marginLeft:"8px", marginBottom:'3px'}} /> </Button>
             </Box>
-            </Grid>
+            </Grid> 
             </Grid>
           
         </Container>
@@ -137,4 +150,4 @@ const navigate = useNavigate();
 }
 
 
-export default Dashboard;
+export default DashboardPlus;

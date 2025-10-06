@@ -1,6 +1,6 @@
 
 import { useState } from "react";
-import { callPostApi } from "../components/API/ApiCallFunction";
+import { callPostApi } from "../../components/API/ApiCallFunction";
 import { Button, Box, TextField, Typography } from "@mui/material";
 import { ToastContainer, toast } from 'react-toastify';
 import { useNavigate } from "react-router-dom";
@@ -81,18 +81,18 @@ const handleSubmit = async (e) => {
     <Box className="login" display="flex" justifyContent="center" alignItems="center" height="100vh">
       <ToastContainer />
       <Box className="login-box" elevation={3} sx={{ padding: 4, width: 300 }}>
-        <Box className='text-center' sx={{backgroundColor:'#000000', p:1}}>
+        <Box className='text-center'>
          <img src="images/cashilogo.png" alt="logo" height="30px" width="auto" />
         </Box>
         <Typography variant="h5" mb={1} mt={2} sx={{color:'#ffffff'}}>Sign In</Typography>
         <form onSubmit={handleSubmit}>
           <TextField className="transparent-textfield" fullWidth margin="normal" label="Username" required variant="filled"
-          value={username} onChange={(e) => setUsername(e.target.value)}
+          value={username} onChange={(e) => setUsername(e.target.value)} 
           />
           <TextField className="transparent-textfield" fullWidth margin="normal" label="Password" type="password" required variant="filled"
            value={password}  onChange={(e) => setPassword(e.target.value)} 
            />
-          <Button type="submit" variant="contained" fullWidth sx={{ mt: 2, background:'linear-gradient(195deg, #42424a, #191919)',
+          <Button type="submit"  variant="gradient" fullWidth sx={{ mt: 2, background: 'linear-gradient(195deg, #49a3f1, #1A73E8)',
             color:'#ffffff',
              '&.Mui-disabled': {
               color: '#ffffff',
@@ -103,6 +103,29 @@ const handleSubmit = async (e) => {
           </Button>
         </form>
       </Box>
+      <style>
+               {`
+               /* Default label color */
+       .MuiInputLabel-root {
+         color: #ccc !important;
+       }
+       
+       /* Autofill label color */
+       input:-webkit-autofill {
+         box-shadow: 0 0 0 100px #23272b inset !important; /* optional: background fix */
+         -webkit-text-fill-color: #fff !important;         /* optional: input text color */
+         
+       }
+       .css-voecp4-MuiInputBase-input-MuiFilledInput-input:-webkit-autofill{
+       border-top-left-radius:0 !important;
+         border-top-right-radius:0 !important;
+       }
+       /* Target label when autofill is active */
+       input:-webkit-autofill ~ .MuiInputLabel-root,
+       input:-webkit-autofill + .MuiInputLabel-root {
+         color: #000 !important;
+       }`}
+      </style>
     </Box>
   );
 }

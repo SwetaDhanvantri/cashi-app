@@ -5,7 +5,7 @@ import { Box, Button, Container, Typography, Pagination, PaginationItem, useMedi
 import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { callPostApi } from '../../components/API/ApiCallFunction';
-import { Add, CurrencyRupee, Info } from '@mui/icons-material';
+import { Add , Info } from '@mui/icons-material';
 import Status from './StatusChip';
 import ImagePreview from '../CommanComponents/ImagePreview';
 import FullImgPreview from '../CommanComponents/FullImgPreview';
@@ -58,7 +58,7 @@ export default function CouponList() {
     if (isMobile && apiRef.current) {
       apiRef.current.autosizeColumns({ includeHeaders: true });
     }
-  }, [isMobile, apiRef]);
+  }, [isMobile]);
 
   // Offer List API
 const couponListApi = async () => {

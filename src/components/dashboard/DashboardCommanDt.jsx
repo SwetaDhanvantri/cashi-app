@@ -59,7 +59,7 @@ export default function DashboardCommanDt({ title, icon, columns, rows, toolbar,
     if (isMobile && apiRef.current) {
       apiRef.current.autosizeColumns({ includeHeaders: true });
     }
-  }, [isMobile, apiRef]);
+  }, [isMobile]);
 
   return (
     <Container>

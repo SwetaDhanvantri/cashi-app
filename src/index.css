@@ -41,7 +41,7 @@ code {
   padding-bottom: 0;
 }
 /* ################## */
-.login{
+/* .login{
 background: linear-gradient(
   to bottom right,
   #000000 0%,
@@ -53,12 +53,24 @@ background: linear-gradient(
 );
 
 
+} */
+
+.login{
+  background: url("assets/login-bg.png") no-repeat center center fixed;
+  background-size: cover;
 }
 .login-box{
-  background: linear-gradient(195deg, #49a3f1, #1A73E8);
+  /* background: linear-gradient(195deg, #49a3f1, #1A73E8); */
+  background: #11141a;
+   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6);
+   border-radius: 12px;
+    transition: box-shadow 0.3s ease-in-out;
 }
 
-
+.login-box:has(button:hover) {
+  box-shadow: 0 0 25px rgba(0, 180, 255, 0.9), 
+              0 0 30px rgba(0, 180, 255, 0.6);
+}
 /*  */
 .blue-bg{
   height: 180px;
@@ -85,15 +97,20 @@ background: linear-gradient(
 }
 
 /* text field */
-.transparent-textfield .MuiFilledInput-root {
+.login input{
+  color: #ffffff;
+}
+.login button:hover{
+  box-shadow: 
+    0 -8px 20px rgba(42, 109, 244, 0.2),   /* glow at the top */
+    0 8px 20px rgba(0, 0, 0, 0.6);  
+}
+/* .transparent-textfield .MuiFilledInput-root {
   background-color: transparent;
   transition: background-color 0.3s;
-}
+} */
 
-.transparent-textfield .Mui-focused .MuiFilledInput-root,
-.transparent-textfield .MuiInputLabel-shrink + .MuiFilledInput-root {
-  background-color: #e3f2fd; /* Light blue when focused or shrink */
-}
+
 
 /* ********** Respnsive * *********  */
  /* Extra small devices (phones, less than 576px) */
