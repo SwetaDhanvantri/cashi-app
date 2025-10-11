@@ -3,7 +3,7 @@ import { AppBar, Toolbar, Typography, IconButton, Box, Grid, Button,
   Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle 
  } from "@mui/material";
 import LogoutIcon from "@mui/icons-material/Logout";
-import { AccountBalanceWallet, Celebration, CurrencyRupee, Info, WarningAmber} from "@mui/icons-material";
+import { AccountBalanceWallet, Celebration, CurrencyRupee, WarningAmber} from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
 import StoreDialog from "./StoreDialog";
 import { Card } from "react-bootstrap";
@@ -33,7 +33,7 @@ const navigate = useNavigate();
 
   const handleClaimClose = () => {
     setClaimOpen(false);
-    navigate("/wallet"); // go to wallet page after claim
+    navigate("walletPlus"); // go to wallet page after claim
   };
   return (
     <>
@@ -70,14 +70,14 @@ const navigate = useNavigate();
            <Box sx={{borderRadius:'6px', border:'1px solid #dbdbdbff', mx:'10px', my:'5px', cursor:'pointer',
             display:'flex', alignItems:'center'
            }} 
-           onClick={()=> navigate('/wallet')} >
-             <Typography sx={{width:'40px'}}>
-                 <Typography sx={{px:'7px', py:'5px' , backgroundColor:'#888888', borderTopLeftRadius:'5px',
+           onClick={()=> navigate('walletPlus')} >
+             <Box sx={{width:'40px'}}>
+                 <Box sx={{px:'7px', py:'5px' , backgroundColor:'#888888', borderTopLeftRadius:'5px',
                    borderBottomLeftRadius:'5px'
                  }}>
-                  <AccountBalanceWallet  onClick={()=> navigate('/wallet')} />
-                 </Typography>
-             </Typography>
+                  <AccountBalanceWallet  onClick={()=> navigate('walletPlus')} />
+                 </Box>
+             </Box>
               <Typography sx={{display:'flex', alignItems:'center', px:1}}  >
               <CurrencyRupee /> 0.00
              </Typography>

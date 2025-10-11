@@ -9,6 +9,7 @@ import InfoPopover from '../CommanComponents/InfoPopover';
 import GradientLoader from '../CommanComponents/GradientLoader';
 
 export default function CreateCouponDialog() {
+  const user = JSON.parse(sessionStorage.getItem("user") || "{}");
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const inputRef = useRef(null);
@@ -93,9 +94,9 @@ const handleSubmit = async () => {
     tempErrors.redemptionBid = 'Redemption Bid is required';
   }
 
-  if (!imageFile) {
-    tempErrors.image = 'Coupon image is required';
-  }
+  // if (!imageFile) {
+  //   tempErrors.image = 'Coupon image is required';
+  // }
 
   setErrors(tempErrors);
   if (Object.keys(tempErrors).length > 0) return;
@@ -114,43 +115,48 @@ const handleSubmit = async () => {
     if (imageFile) {
       fileData = await toBase64(imageFile);
     }
-
+   const storeid = user.store_info.store_id;
+   
     const payload = {
       mod: "ADD_CASHI_OFFER",
       data_arr: {
-        store_id: "1020",
+        store_id: storeid,
         offer_title: formData.offerTitle,
         short_desc: formData.shortDesc,
         long_desc: formData.longDesc,
         coupon_coin: formData.couponValue,
-        max_coupon: formData.maxAmount,
-        // min_order: formData.minAmount,  
-        // distribution_bid: distributionBid,
-        // redemption_bid: redemptionBid,
-        // value_type: formData.valueType,
+        max_coupon: formData.maxAmount,   //no of coupon
+        min_order_amount: formData.minAmount,  
+        distribution_bid: distributionBid,
+        redemption_bid: redemptionBid,
+        coupon_value_type: formData.valueType,
         offer_active: formData.dateStart,
         offer_expire: formData.dateEnd,
-        offerImage: {
-          file_name: imageFile ? imageFile.name : "",
-          file_data: fileData,
-        },
+        offerImage: fileData || "",
       },
     };
 
+
+
     const apiResult = await callPostApi("cashi-offer", payload);
-    console.log("payload" + JSON.stringify(payload) )
-    if (apiResult.status === "200" && apiResult.data) {
+      console.log("API Payload:", JSON.stringify(payload)); 
+    console.log("API Result:", JSON.stringify(apiResult));
+    if (apiResult.status === "200" && apiResult.data) 
+      {
       toast.success("Coupon created successfully!");
       navigate(-1);
-    } else {
-      if (apiResult.status === "406") {
-        toast.error(apiResult.status_message || "Validation error");
-      } else {
-        toast.error("Failed to create coupon");
-      }
+    } 
+    else 
+    {
+
+      
+      {apiResult.status_message && toast.error(apiResult.status_message)}
+      {!apiResult.status_message && toast.error("Failed to create coupon")}
+      setLoading(false);
     }
   } catch (error) {
-    console.error(error);
+
+
     toast.error("Something went wrong. Please try again.");
   }
   finally {
@@ -255,7 +261,7 @@ const handleSubmit = async () => {
             </RadioGroup>
           </FormControl>
 
-          <Typography sx={{ display: 'flex' }}>
+          <Box sx={{ display: 'flex' }}>
            <TextField
             fullWidth
             label="Coupon Value"
@@ -270,7 +276,7 @@ const handleSubmit = async () => {
 " 
           />
 
-          </Typography>
+          </Box>
          
         </Grid>
 
@@ -410,7 +416,7 @@ const handleSubmit = async () => {
             
             {imagePreview && <Box sx={{ mt: 2 }}><img src={imagePreview} alt="Preview" style={{ width: "100%", maxHeight: "200px", objectFit: "contain", border: "1px solid #ccc", borderRadius: "8px" }} /></Box>}
           </Grid>
-         {errors.image && <Typography color="error">{errors.image}</Typography>}
+         {/* {errors.image && <Typography color="error">{errors.image}</Typography>} */}
       </Grid>
 
       {/* Buttons */}

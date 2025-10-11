@@ -16,9 +16,13 @@ export async function callPostApi(fileName, requestData)
     } 
     catch (err) 
     {
-        console.error('Error:', err.message);
+        
+        console.error('API POST Error:', err.message);
+
+        if (err.response && err.response.data) { return err.response.data; }
+
         // It's a good practice to return something when an error occurs
-        return { status: false, message: err.message };
+        return { status: false, message: err.message || 'Unknown error occurred' };
     }
 
     
@@ -41,10 +45,13 @@ export async function callGetApi(fileName,dataInputArr)
       return result.data;
     } 
     catch (err) 
-    {
-      console.error('Error:', err.message);
-      // It's a good practice to return something when an error occurs
-      return { status: false, message: err.message };
+    { 
+        console.error('API POST Error:', err.message);
+
+        if (err.response && err.response.data) { return err.response.data; }
+
+        // It's a good practice to return something when an error occurs
+        return { status: false, message: err.message || 'Unknown error occurred' };
     }
 
 }

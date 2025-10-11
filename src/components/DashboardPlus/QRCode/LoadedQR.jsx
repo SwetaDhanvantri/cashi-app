@@ -71,7 +71,7 @@ export default function LoadedQR() {
                         label="Lot No." required  value="1235" InputProps={{ readOnly: true }}
                         type="number" inputProps={{ min: 1 }}/>
               <TextField className="transparent-textfield" fullWidth margin="normal"
-                        label="Loaded No." required  value="7235" InputProps={{ readOnly: true }}
+                        label="Loading No." required  value="7235" InputProps={{ readOnly: true }}
                         type="number" inputProps={{ min: 1 }}/>
               <TextField sx={{mt:2}} fullWidth type="date"  label="Activate Date" InputLabelProps={{ shrink: true }}
                 value={activedate}  error={!!errors.activedate}  helperText={errors.activedate} 

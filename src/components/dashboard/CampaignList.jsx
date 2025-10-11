@@ -59,8 +59,6 @@ export default function CampaignList() {
 //   const payload = { mod: "CASHI_OFFER_LIST", data_arr: { store_id: "1020" } };
 //   const apiResult = await callPostApi("cashi-offer", payload);
 
-//   console.log("payload:", JSON.stringify(payload));
-//   console.log("response:", JSON.stringify(apiResult));
 
 //   if (apiResult.status === "200" && Array.isArray(apiResult.data?.success)) {
 //     const formattedData = apiResult.data.success.map((item, index) => ({
@@ -77,7 +75,7 @@ export default function CampaignList() {
 
 //     setDatar(formattedData);
 //   } else {
-//     console.error("API Error:", apiResult);
+
 //   }
 // };
 

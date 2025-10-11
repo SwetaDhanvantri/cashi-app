@@ -1,5 +1,4 @@
 
-import * as React from 'react';
 import { DataGrid, gridPageCountSelector, gridPageSelector, useGridSelector, useGridApiRef } from '@mui/x-data-grid';
 import { Box, Button, Container, Typography, Pagination, PaginationItem, useMediaQuery, Dialog, DialogTitle, DialogContent, DialogActions } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
@@ -24,7 +23,6 @@ function CustomPagination({ apiRef, isMobile }) {
       renderItem={(props2) => <PaginationItem {...props2} disableRipple />}
       onChange={(event, value) => {
         apiRef.current.setPage(value - 1);
-        // re-autosize on page change for mobile
         if (isMobile && apiRef.current) {
           setTimeout(() => {
             apiRef.current.autosizeColumns({ includeHeaders: true });
@@ -35,23 +33,25 @@ function CustomPagination({ apiRef, isMobile }) {
   );
 }
 
-const PAGE_SIZE = 5;
+const PAGE_SIZE = 10;
 
 export default function CouponList() {
   const navigate = useNavigate();
   const apiRef = useGridApiRef();
   const [datar, setDatar] = useState([]);
-    const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [totalRowCount, setTotalRowCount] = useState(0);
   const [open, setOpen] = useState();
   const [selectedRow, setSelectedRow] = useState(null);
   const isMobile = useMediaQuery('(max-width:768px)');
+  const user = JSON.parse(sessionStorage.getItem("user") || "{}");
   const [paginationModel, setPaginationModel] = useState({
     pageSize: PAGE_SIZE,
     page: 0,
   });
   useEffect(()=> {
-  couponListApi();
-  }, []);
+  couponListApi(paginationModel.page + 1, PAGE_SIZE);
+  }, [paginationModel.page]);
 
   // Autosize on mount and when screen size changes
   useEffect(() => {
@@ -61,40 +61,54 @@ export default function CouponList() {
   }, [isMobile]);
 
   // Offer List API
-const couponListApi = async () => {
-  setLoading(true)
-  const payload = { mod: "CASHI_OFFER_LIST", data_arr: { store_id: "1020" } };
-  const apiResult = await callPostApi("cashi-offer", payload);
+const couponListApi = async (page, limit) => {
+  try{ 
+    setLoading(true)
+   const storeid = user.store_info.store_id;
+   const start = (page - 1) * limit + 1;
+   const payload = { mod: "CASHI_OFFER_LIST", data_arr: { store_id: storeid, start: String(start), limit: String(limit) } };
+   const apiResult = await callPostApi("cashi-offer", payload);
 
-  console.log("payload:", JSON.stringify(payload));
-  console.log("response:", JSON.stringify(apiResult));
-
-  if (apiResult.status === "200" && Array.isArray(apiResult.data?.success)) {
+          // console.log("API Payload:", JSON.stringify(payload)); 
+          // console.log("API Result:", JSON.stringify(apiResult));
+  if (apiResult.status === "200" && Array.isArray(apiResult.data)) {
      setLoading(false)
-    const formattedData = apiResult.data.success.map((item, index) => ({
+    const formattedData = apiResult.data.map((item, index) => ({
       id: index + 1,
       offerId: item.offer_id || "NA",
       ctitle: item.offer_title || "NA",
+      generate: item.max_coupon || "NA",
+      maxOrder: item.min_order_amount || "NA",
       cvalue: item.coupon_coin || "NA",
+      redemption: item.redemption_bid || "NA",
+      distributionBid: item.distribution_bid || "NA",
       shortd: item.short_desc || "NA",
       longd: item.long_desc || "NA",
       activedate: item.offer_active || "NA",
       expdate: item.offer_expire || "NA",
       offimg: item.offer_logo  || "NA",
-      status:  "Approved",
-      generate:"0",
+      status:  "1" ? "Approved" || "NA" : "Pending",
+   
       issued:"0",
-      redemption:'0'
+ 
     }));
 
     setDatar(formattedData);
+    setTotalRowCount(apiResult.total_count || 1000);
   } else {
-    console.error("API Error:", apiResult);
-  }
-};
+        setDatar([]);
+        setTotalRowCount(0);
+  } 
+  }catch (err) {
+      console.error("Error fetching offers:", err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
 
  const columns = [
-    { field: 'id', headerName: 'Sr no.', flex: isMobile ? undefined : 0.5},
+    { field: 'id', headerName: 'Sr no.', flex: isMobile ? undefined : 0.7},
   { field: 'ctitle', headerName: 'Coupon Title',  flex: isMobile ? undefined : 1,},
    
   {
@@ -204,12 +218,13 @@ const couponListApi = async () => {
     
 
       {/* DataGrid */}
-      <Box sx={{ height: 'auto', maxHeight: 500, width: '100%' }}>
+      <Box sx={{ height: 'auto',  width: '100%', mb:4 }}>
         <DataGrid
-        apiRef={apiRef}  
+          apiRef={apiRef}  
           rows={datar}
           columns={columns}
-          initialState={{ pagination: { paginationModel } }}
+          paginationMode="server"
+          rowCount={totalRowCount}
           paginationModel={paginationModel}
           onPaginationModelChange={setPaginationModel}
           pageSizeOptions={[PAGE_SIZE]}
@@ -280,3 +295,4 @@ const couponListApi = async () => {
     </Container>
   );
 }
+

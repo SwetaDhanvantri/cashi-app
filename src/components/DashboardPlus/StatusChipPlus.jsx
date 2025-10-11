@@ -80,7 +80,7 @@ const handleMenuOpen = (e) => {
   const handleResubmit = () => {
   
      navigate('/createcoupon')
-     console.log('Resubmit clicked for:', status);
+
     // Your resubmit logic here
   };
 

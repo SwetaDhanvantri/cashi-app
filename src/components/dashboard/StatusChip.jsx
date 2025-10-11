@@ -1,5 +1,5 @@
 // components/StatusChip.jsx
-import * as React from 'react';
+import React from 'react';
 import Chip from '@mui/material/Chip';
 import { styled } from '@mui/material/styles';
 import { Close, InfoOutline, InfoOutlined, Replay, Verified, WarningAmber } from '@mui/icons-material';
@@ -80,8 +80,8 @@ const handleMenuOpen = (e) => {
   const handleResubmit = () => {
   
      navigate('/createcoupon')
-     console.log('Resubmit clicked for:', status);
-    // Your resubmit logic here
+  
+
   };
 
   return (

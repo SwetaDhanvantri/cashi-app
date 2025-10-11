@@ -2,7 +2,6 @@ import * as React from 'react';
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
 import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
 import { AccountCircle, AddBusiness, ContactPhone, PinDrop, Store } from '@mui/icons-material';
 import { Grid, InputAdornment, TextField } from '@mui/material';
 
@@ -29,36 +28,21 @@ export default function StoreDialog() {
     ? user.store_info.store_name.substring(0, 19) + "..."
     : user.store_info?.store_name}
       </Button>
-      <Dialog
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="alert-dialog-title"
-        aria-describedby="alert-dialog-description"
-      >
-        {/* <DialogTitle id="alert-dialog-title">
-          {"Use Google's location service?"}
-        </DialogTitle> */}
+      <Dialog open={open} onClose={handleClose} aria-labelledby="alert-dialog-title" aria-describedby="alert-dialog-description">
+       
         <DialogContent>
-          <DialogContentText id="alert-dialog-description">
+          <DialogContent id="alert-dialog-description">
             <Grid container spacing={2}>
             {/* Offer Title */}
             <Grid item size={{ xs: 12,sm:12, md: 12,  }} sx={{textAlign:'right'}}>
-               <img src={user.store_image[0]} alt="external-link" style={{width:'60px', marginLeft:'4px', filter: 'invert(1)'}} />
+               <img src={user.store_info.store_image} alt="external-link" style={{width:'60px', marginLeft:'4px', filter: 'invert(1)'}} /> 
             </Grid>
             <Grid item size={{ xs: 12,sm:12, md: 12,  }}>
-              <TextField
-               id="input-with-icon-textfield"
-               label="Store Name"
-               value={user.store_info.store_name}
-                InputProps={{
-               readOnly: true,}}
-                InputLabelProps={{
-                 style: { color: '#888' },
-                 }}
+              <TextField id="input-with-icon-textfield" label="Store Name" value={user.store_info.store_name}
+                InputProps={{ readOnly: true,}} InputLabelProps={{ style: { color: '#888' },}}
                style={{width:'100%'}}
                slotProps={{
-                 input: {
-                   startAdornment: (
+                 input: { startAdornment: (
                      <InputAdornment position="start">
                        <Store sx={{ color:'#1A73E8' }} />
                      </InputAdornment>
@@ -72,15 +56,9 @@ export default function StoreDialog() {
 
             </Grid>
                <Grid item size={{ xs: 12,sm:12, md: 12,  }}>
-              <TextField
-               id="input-with-icon-textfield"
-               label="Store Address"
-               value={user.store_info.store_address}
-               multiline
-               maxRows={2}
-                InputProps={{
-               readOnly: true,
-                }}
+              <TextField id="input-with-icon-textfield" label="Store Address"
+              value={`${user.store_info.area_name}, ${user.store_info.city_name}, ${user.store_info.state_name} `}
+               multiline maxRows={2} InputProps={{ readOnly: true,}}
                 style={{width:'100%'}}
                slotProps={{
                  input: {
@@ -93,23 +71,14 @@ export default function StoreDialog() {
                  },
                }}
                variant="standard"
-                InputLabelProps={{
-                 style: { color: '#888' },
-                 }}
+                InputLabelProps={{ style: { color: '#888' },}}
              />
             </Grid>
 
                <Grid item size={{ xs: 12,sm:12, md: 6,  }}>
-              <TextField
-               id="input-with-icon-textfield"
-               label="Contact Name"
-               value={user.store_info.owner_name}
-                InputProps={{
-               readOnly: true,
-                }}
-                 InputLabelProps={{
-                 style: { color: '#888' },
-                 }}
+              <TextField  id="input-with-icon-textfield" label="Contact Name"
+               value={user.store_info.owner_name} InputProps={{ readOnly: true, }}
+                 InputLabelProps={{ style: { color: '#888' },}}
                 style={{width:'100%'}}
                slotProps={{
                  input: {
@@ -125,16 +94,10 @@ export default function StoreDialog() {
              />
             </Grid>
              <Grid item size={{ xs: 12,sm:12, md: 6,  }}>
-              <TextField
-               id="input-with-icon-textfield"
-               label="Contact"
-               value="+91 8098763456"
-                InputProps={{
-               readOnly: true,
-                }}
-                 InputLabelProps={{
-                 style: { color: '#888', pointerEvents: 'none' },
-                 }}
+              <TextField id="input-with-icon-textfield" label="Contact"
+              value={user.store_info.contact_mobile}
+                InputProps={{readOnly: true,}}
+                 InputLabelProps={{ style: { color: '#888', pointerEvents: 'none' },}}
                 style={{width:'100%'}}
                slotProps={{
                  input: {
@@ -156,7 +119,7 @@ export default function StoreDialog() {
                <Button sx={{background:'linear-gradient(195deg, #49a3f1, #1A73E8)', color:'#fff', px:2}}>
                    <AddBusiness/> Manage Store</Button></a> </Grid>
             </Grid>
-          </DialogContentText>
+          </DialogContent>
         </DialogContent>
       
       </Dialog>

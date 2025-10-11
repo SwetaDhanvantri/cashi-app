@@ -45,16 +45,18 @@ const handleSubmit = async (e) => {
 
       const apiResult = await callPostApi("store-login", payload);
 
-         console.log("payload" + JSON.stringify(payload) )
-         console.log("res" + JSON.stringify(apiResult) )
-         if (apiResult.status === "202" && apiResult.data) {
+          // console.log("API Payload:", JSON.stringify(payload)); 
+          // console.log("API Result:", JSON.stringify(apiResult));
+      
+         if (apiResult.status === "200" && apiResult.data) {
+            
            toast.success("Login successfully!");
-          const successData = apiResult.data.success; 
+              const successData = apiResult.data; 
            const storeInfo = successData.store_info;
          
            if (storeInfo) {
              sessionStorage.setItem("user", JSON.stringify(successData));
-             console.log("User stored:", successData);
+
            }
           
            onLogin(apiResult.data);
@@ -70,12 +72,13 @@ const handleSubmit = async (e) => {
            }
          }
        } catch (error) {
-         console.error(error);
+          setLoading(false);
          toast.error("Something went wrong. Please try again.");
        }
   };
 
  
+
   return (
     
     <Box className="login" display="flex" justifyContent="center" alignItems="center" height="100vh">

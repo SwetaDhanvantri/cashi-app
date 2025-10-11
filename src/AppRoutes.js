@@ -1,8 +1,8 @@
 import { useState } from "react";
-import { Routes, Route, useNavigate, useLocation, Navigate } from "react-router-dom";
+import { Routes, Route, useNavigate, Navigate } from "react-router-dom";
 import Login from './components/Login/Login';
 
-// 🧭 Dashboard Components
+//  Dashboard Components
 import Dashboard from "./components/dashboard/Dashboard";
 import {
   IssuedCouponDt,
@@ -29,7 +29,11 @@ import DashboardCommanPlus from "./components/DashboardPlus/DashboardCommanPlus"
 import LoadQR from "./components/DashboardPlus/QRCode/LoadQR";
 import GenerateQRCode from "./components/DashboardPlus/QRCode/GenerateQRCode";
 import PrintQR from "./components/DashboardPlus/QRCode/PrintQR";
-
+import WalletPlus from "./components/DashboardPlus/Wallet/WalletPlus";
+import MobileDrawer from "./components/dashboard/Navbar/MobileDrawer";
+import { IssuedList } from "./components/dashboard/DashboardListing/IssuedList";
+import {RedeemedList} from "./components/dashboard/DashboardListing/RedeemedList";
+import { CustomerList } from "./components/dashboard/DashboardListing/CustomerList";
 // ------------------------------------------------------------------
 // MAIN DASHBOARD LAYOUT
 // ------------------------------------------------------------------
@@ -41,7 +45,10 @@ const DashboardLayout = ({ onLogout }) => {
         <Routes>
           <Route path="dashboard" element={<Dashboard />} />
           <Route path="issued" element={<IssuedCouponDt />} />
+          <Route path="issuedList" element={<IssuedList />} />
           <Route path="redeemed" element={<RedeemedCouponDt />} />
+          <Route path="redeemedList" element={<RedeemedList />} />
+          <Route path="customerList" element={<CustomerList/>} />
           <Route path="totalvalue" element={<TotalValueDt />} />
           <Route path="totalcustomer" element={<TotalCustomerDt />} />
           <Route path="createcoupon" element={<CreateCouponDialog />} />
@@ -49,8 +56,8 @@ const DashboardLayout = ({ onLogout }) => {
           <Route path="wallet" element={<Wallet />} />
           <Route path="couponlist" element={<CouponList />} />
           <Route path="campaignList" element={<CampaignList />} />
-          
           <Route path="dialogbox" element={<DialogBox />} />
+          <Route path="mobileDrawer" element={<MobileDrawer/>} />
          
           {/* Add redirect for base /dashboard */}
           <Route path="*" element={<Navigate to="/dashboard" replace />} />
@@ -64,10 +71,10 @@ const DashboardLayout = ({ onLogout }) => {
 // ------------------------------------------------------------------
 // DASHBOARD PLUS LAYOUT
 // ------------------------------------------------------------------
-const DashboardPlusLayout = () => {
+const DashboardPlusLayout = ({ onLogout }) => {
   return (
     <div style={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}>
-      <DashboardPlusNavbar />
+      <DashboardPlusNavbar onLogout={onLogout} />
       <div style={{ flex: 1 }}>
         <Routes>
           <Route path="" element={<DashboardPlus />} />
@@ -80,6 +87,7 @@ const DashboardPlusLayout = () => {
           <Route path="activatedQRdt" element={<ActivatedQrDt />} /> 
           <Route path="dashboardCommanPlus" element={<DashboardCommanPlus />} /> 
           <Route path="totalCustomerPlusDt" element={<TotalCustomerPlusDt />} /> 
+          <Route path="walletPlus" element={<WalletPlus />} /> 
         </Routes>
       </div>
       <Footer />
@@ -122,7 +130,7 @@ const AppRoutes = () => {
       <Route path="/*" element={<DashboardLayout onLogout={handleLogout} />} />
 
       {/* Dashboard Plus Layout */}
-      <Route path="/dashboardPlus/*" element={<DashboardPlusLayout />} />
+      <Route path="/dashboardPlus/*" element={<DashboardPlusLayout onLogout={handleLogout} />} />
     </Routes>
   );
 };

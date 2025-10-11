@@ -8,6 +8,8 @@ import { useNavigate } from "react-router-dom";
 import StoreDialog from "./StoreDialog";
 import { Card } from "react-bootstrap";
 import partypopper from '../../../assets/partypopper.gif';
+import MobileDrawer from "./MobileDrawer";
+
 function Navbar({ onLogout }) {
 const navigate = useNavigate();
  const [open, setOpen] = useState(false);
@@ -69,17 +71,18 @@ const navigate = useNavigate();
             display:'flex', alignItems:'center'
            }} 
            onClick={()=> navigate('/wallet')} >
-             <Typography sx={{width:'40px'}}>
-                 <Typography sx={{px:'7px', py:'5px' , backgroundColor:'#888888', borderTopLeftRadius:'5px',
+             <Box sx={{width:'40px'}}>
+                 <Box sx={{px:'7px', py:'5px' , backgroundColor:'#888888', borderTopLeftRadius:'5px',
                    borderBottomLeftRadius:'5px'
                  }}>
                   <AccountBalanceWallet  onClick={()=> navigate('/wallet')} />
-                 </Typography>
-             </Typography>
+                 </Box>
+             </Box>
               <Typography sx={{display:'flex', alignItems:'center', px:1}}  >
               <CurrencyRupee /> 0.00
              </Typography>
-         
+            
+           
            </Box>
           
            <StoreDialog />
@@ -91,7 +94,9 @@ const navigate = useNavigate();
          }} onClick={handleLogoutClick}>
           <LogoutIcon sx={{ fontSize:'20px'}} />
         </IconButton>
+         {/* <MobileDrawer/> */}
         </Box>
+        
       </Toolbar>
     </AppBar>
 

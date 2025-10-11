@@ -1,10 +1,8 @@
-
-import * as React from 'react';
 import { DataGrid, gridPageCountSelector, gridPageSelector, useGridSelector, useGridApiRef } from '@mui/x-data-grid';
-import { Box, Button, Container, Typography, Pagination, PaginationItem, useMediaQuery, TextField, DialogActions, DialogContent } from '@mui/material';
+import { Box, Button, Container, Typography, Pagination, PaginationItem, useMediaQuery, TextField, DialogActions } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import {PrintOutlined, QrCode2, SystemUpdateAltOutlined ,InfoOutline,Verified, CheckCircleOutline} from '@mui/icons-material';
+import {PrintOutlined, SystemUpdateAltOutlined ,InfoOutline,Verified, CheckCircleOutline} from '@mui/icons-material';
 import DialogBox from '../../CommanComponents/DialogBox'
 import { ToastContainer, toast } from 'react-toastify';
 import { Chip } from "@mui/material";
@@ -47,25 +45,25 @@ export default function LoadQR() {
    id:1, qr: '122',expdate:'8899', status:'Activated', amount:'100', lotno:'12345', loadedno:'100'
   },
   {
-   id:2, qr: '123',expdate:'8890', status:'Pending', amount:'', lotno:'45533'
+   id:2, qr: '123',expdate:'8890', status:'Pending', amount:'NA', lotno:'45533', loadedno:'NA'
   },
   {
-   id:3, qr: '123',expdate:'8890', status:'Pending', amount:'', lotno:'87764'
+   id:3, qr: '123',expdate:'8890', status:'Pending', amount:'NA', lotno:'87764', loadedno:'NA'
   },
   {
-   id:4, qr: '124',expdate:'8892', status:'Loaded', amount:'1233', lotno:'22442', loadedno:'500'
+   id:4, qr: '124',expdate:'8892', status:'Loading', amount:'1233', lotno:'22442', loadedno:'500'
   },
    {
-   id:5, qr: '123',expdate:'8840', status:'Pending', amount:'', lotno:'45533'
+   id:5, qr: '123',expdate:'8840', status:'Pending', amount:'NA', lotno:'45533', loadedno:'NA'
   },
   {
-   id:6, qr: '223', expdate:'2890', status:'Pending', amount:'', lotno:'87764'
+   id:6, qr: '223', expdate:'2890', status:'Pending', amount:'NA', lotno:'87764', loadedno:'NA'
   },
    {
-   id:7, qr: '423',expdate:'8890', status:'Pending', amount:'', lotno:'45535'
+   id:7, qr: '423',expdate:'8890', status:'Pending', amount:'NA', lotno:'45535', loadedno:'NA'
   },
   {
-   id:8, qr: '623',expdate:'8890', status:'Pending', amount:'', lotno:'87754'
+   id:8, qr: '623',expdate:'8890', status:'Pending', amount:'NA', lotno:'87754', loadedno:'NA'
   },
 ]
   const navigate = useNavigate();
@@ -75,7 +73,7 @@ export default function LoadQR() {
     pageSize: PAGE_SIZE,
     page: 0,
   });
-  const [lotno, setLotno] = useState('');
+
   const [loadedNo, setLoadedNo] = useState('');
   const [amount, setAmount] = useState('');
   const [errors, setErrors] = useState({});
@@ -94,14 +92,12 @@ export default function LoadQR() {
  // Validations for Load QR
   const validate = () => {
     const newErrors = {};
-    if (!lotno || isNaN(lotno) || Number(lotno) <= 0) {
-      newErrors.lotno= 'Please Select Lot no.';
+   
+    if (!amount || isNaN(amount) || Number(amount) <= 0) {
+    newErrors.amount= 'Enter a valid Amount';
     }
     if (!loadedNo || isNaN(loadedNo) || Number(loadedNo) <= 0) {
-      newErrors.loadedNo= 'Enter a valid Loaded No.';
-    }
-    if (!amount || isNaN(amount) || Number(lotno) <= 0) {
-      newErrors.amount= 'Enter a valid Amount';
+    newErrors.loadedNo= 'Enter a valid Amount';
     }
    
     setErrors(newErrors);
@@ -111,7 +107,6 @@ export default function LoadQR() {
   const handleOk = () => {
     if (!validate()) return;  
      toast.success('QR Code loaded successfully!');
-     setLotno('');
      setAmount('');
      setOpen(false);
   }
@@ -163,7 +158,7 @@ export default function LoadQR() {
          
           icon = <InfoOutline sx={{ fontSize: 18 }} />;
           break;
-        case "Loaded":
+        case "Loading":
            color = "#0a32d4ff";
           border= '1px solid #0a32d4ff';
           icon = <CheckCircleOutline sx={{ fontSize: 18 }} />;
@@ -183,7 +178,7 @@ export default function LoadQR() {
     }
    },
   { field: 'lotno', headerName: 'Lot No', flex: isMobile ? undefined : 1 },
-  { field: 'loadedno', headerName: 'Loaded No', flex: isMobile ? undefined : 1 },
+  { field: 'loadedno', headerName: 'Loading No', flex: isMobile ? undefined : 1 },
 
  ]
 
@@ -191,7 +186,6 @@ export default function LoadQR() {
  useEffect(() => { 
                      
   if (!open) {
-    setLotno('');
     setAmount('')
     setErrors({});
   }
@@ -211,7 +205,7 @@ export default function LoadQR() {
         sx={{ background: 'linear-gradient(195deg, #49a3f1, #1A73E8)',
           p: 1,  color: '#ffffff', borderRadius: '4px', mb: 3, display: 'flex', alignItems: 'center'}}  >
         <SystemUpdateAltOutlined sx={{mx:1, fontSize:'22px'}}/>  
-        QR Code List
+        QR Coupon List
       </Typography>
 
        <Box sx={{ display: 'flex', justifyContent: 'end', mb: 2 }}>
@@ -230,8 +224,8 @@ export default function LoadQR() {
           
        </Box>
      
-        <Box sx={{ display: 'flex', gap: 2, mb: 2 }}>
-       <TextField select label="Filter Status" value={filterStatus}
+        <Box sx={{ display: 'flex',flexWrap:'wrap', gap: 2, mb: 2 }}>
+        <TextField select label="Filter Status" value={filterStatus}
           onChange={e => {
             setFilterStatus(e.target.value);
             setFilterLotNo('');
@@ -241,7 +235,7 @@ export default function LoadQR() {
         >
           <MenuItem value="">All</MenuItem>
           <MenuItem value="Activated">Activated</MenuItem>
-          <MenuItem value="Loaded">Loaded</MenuItem>
+          <MenuItem value="Loading">Loading</MenuItem>
           <MenuItem value="Pending">Pending</MenuItem>
         </TextField>
         <TextField  select label="Lot No." value={filterLotNo}  onChange={e => setFilterLotNo(e.target.value)}
@@ -251,7 +245,7 @@ export default function LoadQR() {
             <MenuItem key={lot} value={lot}>{lot}</MenuItem>
           ))}
         </TextField>
-        <TextField select label="Loaded No" value={filterLoadedNo} onChange={e => setFilterLoadedNo(e.target.value)}
+        <TextField select label="Loading No" value={filterLoadedNo} onChange={e => setFilterLoadedNo(e.target.value)}
           sx={{ minWidth: 140 }} disabled={uniqueLoadedNos.length === 0}
         >
           <MenuItem value="">All</MenuItem>
@@ -271,7 +265,7 @@ export default function LoadQR() {
       </Box>
 
       {/* DataGrid */}
-      <Box sx={{ height: 'auto', maxHeight: 500, width: '100%' }}>
+      <Box sx={{ height: 'auto', maxHeight: 500, width: '100%', mb: 4 }}>
         <DataGrid
          apiRef={apiRef}  
           rows={filteredRows}
@@ -316,12 +310,12 @@ export default function LoadQR() {
             type="number" inputProps={{ min: 1 }}/>
     
           <TextField className="transparent-textfield" fullWidth margin="normal"
-             label="Loaded No." required  value={loadedNo}  
+             label="Loading No." required  value={loadedNo}  
              onChange={(e) =>  {
                setLoadedNo(e.target.value);
                setErrors(prev => ({ ...prev, loadedNo: undefined }));
              }}
-             error={!!errors.loadedNo} helperText={errors.loadedNo} type="number" inputProps={{ min: 1 }}/>
+              error={!!errors.loadedNo} helperText={errors.loadedNo} type="number" inputProps={{ min: 1 }}/>
 
           <TextField className="transparent-textfield" fullWidth margin="normal"
              label="Enter Amount" required  value={amount}  
@@ -338,7 +332,7 @@ export default function LoadQR() {
 
      
 
-        <ToastContainer />
+  
         <ToastContainer />
     </Container>
   );

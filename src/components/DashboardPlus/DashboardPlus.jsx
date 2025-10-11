@@ -1,16 +1,14 @@
 import { Box, Typography, Button, Container, Card, Divider } from "@mui/material";
 import Grid from '@mui/material/Grid';
-import { Add, ArrowCircleRight, Style, LocalOffer, Widgets, Diversity3, QrCode, QrCode2 } from "@mui/icons-material";
+import { Add, ArrowCircleRight, 
+   LocalOffer, Diversity3, QrCode, QrCode2, QrCodeScanner } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
-import campimg from '../../assets/promotion.png'
-import cashilogo from '../../assets/cashidark.png'
 import GenerateQRCode from "./QRCode/GenerateQRCode";
 import { useState } from "react";
 
 
 function DashboardPlus() {
 
-const user = JSON.parse(sessionStorage.getItem("user") || "{}");
 const [open, setOpen] = useState(false);
 const navigate = useNavigate();
   return (
@@ -24,12 +22,12 @@ const navigate = useNavigate();
               <Box display="flex" alignItems="center" >
                 <Button sx={{background:'linear-gradient(195deg, #EC407A, #D81B60)', color:'#ffffff',
                     boxShadow: 'rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px'
-                   }} onClick={()=> setOpen(true)}><Add/> Generate QR Code</Button>
+                   }} onClick={()=> setOpen(true)}><Add/> Generate QR Coupon</Button>
                      <GenerateQRCode open={open} onClose={()=> setOpen(false)} />
 
                  <Button sx={{background:'linear-gradient(195deg, #42424a, #191919)', color:'#ffffff',ml:1,
                     boxShadow: 'rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px'
-                   }} onClick={() => navigate('loadQR')}><QrCode2 sx={{mr:1}}/>QR Code List</Button>
+                   }} onClick={() => navigate('loadQR')}><QrCode2 sx={{mr:1}}/>QR Coupon List</Button>
 
               </Box>
                     
@@ -45,11 +43,11 @@ const navigate = useNavigate();
                 <Grid size={{ xs: 12, sm:6, md: 4,}}>
                  <Box className="icobox" 
                  sx={{background: 'linear-gradient(195deg, #42424a, #191919)'}}>
-                    <Style sx={{fontSize:'38px', color:'#ffffff'}}/>
+                    <QrCode sx={{fontSize:'38px', color:'#ffffff'}}/>
                  </Box>
                </Grid>
                <Grid size={{ xs: 12,sm:6, md: 8,}} sx={{mb:4}}>
-                 <Typography variant="h6">Generated QR</Typography>
+                 <Typography variant="h6">Generated QR Coupons</Typography>
                 <Typography variant="h4" >0</Typography>
                </Grid>
               
@@ -73,7 +71,7 @@ const navigate = useNavigate();
               
                </Grid>
                   <Grid size={{ xs: 12,sm:6, md: 8,}} sx={{mb:4}}>
-                 <Typography variant="h6">Loaded QR</Typography>
+                 <Typography variant="h6">Loaded QR Coupons</Typography>
                 <Typography variant="h4">0</Typography>
                
                  </Grid>
@@ -92,12 +90,12 @@ const navigate = useNavigate();
                 <Grid size={{ xs: 12,sm:6, md: 4,}}>
                  <Box className="icobox" 
                  sx={{background:'linear-gradient(195deg, #66BB6A, #43A047)'}}>
-                    <Widgets sx={{fontSize:'38px', color:'#ffffff'}}/>
+                    <QrCodeScanner sx={{fontSize:'38px', color:'#ffffff'}}/>
                  </Box>
               
                </Grid>
                   <Grid size={{ xs: 12,sm:6, md: 8,}} sx={{mb:4}}>
-                 <Typography variant="h6">Activated QR</Typography>
+                 <Typography variant="h6">Activated QR Coupons</Typography>
                  <Typography variant="h4">0</Typography>
                
                  </Grid>
@@ -136,14 +134,6 @@ const navigate = useNavigate();
           
         </Container>
       </Box>
-
-     <style>
-  {`
-    .promotion:hover {
-      background-color: #ffffff;
-    }
-  `}
-</style>
 
     </Box>
   );

@@ -1,6 +1,5 @@
-import { Box, Container, Dialog, DialogTitle, DialogContent, IconButton, Card, TextField, Button, Typography, MenuItem, Grid } from '@mui/material';
-import CloseIcon from '@mui/icons-material/Close';
-import React, { useState, useRef, useEffect } from 'react';
+import { Box, Container, Dialog, DialogTitle, DialogContent, TextField, Button, MenuItem, Grid } from '@mui/material';
+import { useState, useRef, useEffect } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import { Template1, Template2, Template3, Template4 } from './QRTemplates';
 import { useNavigate } from 'react-router-dom';
@@ -10,11 +9,11 @@ export default function GenerateQRCode({ open, onClose, onGenerate }) {
   const [totalQR, setTotalQR] = useState('');
   const [lotNo, setLotNo] = useState('');
   const [expDate, setExpDate] = useState('');
-  const [template, setTemplate] = useState('');
+  const [template, setTemplate] = useState('1');
   const [errors, setErrors] = useState({});
   const inputRef1 = useRef();
   const templatePreviews = {
-  '1': <Box> <Template1/></Box>,
+  '1': <Box><Template1/></Box>,
   '2': <Box><Template2 /></Box>,
   '3': <Box><Template3 /></Box>,
   '4': <Box><Template4 /></Box>,
@@ -49,11 +48,11 @@ export default function GenerateQRCode({ open, onClose, onGenerate }) {
     if (onGenerate) {
       onGenerate({ totalQR, expDate , lotNo, template });
     }
-   toast.success('QR Code generated successfully!');
+   toast.success('QR  Coupon generated successfully!');
     setTotalQR('');
     setLotNo('');
     setExpDate('');
-    setTemplate('');
+    setTemplate('1');
     setErrors({});
     navigate('loadQR');
     // onClose();
@@ -69,7 +68,7 @@ export default function GenerateQRCode({ open, onClose, onGenerate }) {
   if (!open) {
     setTotalQR('');
     setExpDate('');
-    setTemplate('');
+    setTemplate('1');
     setErrors({});
   }else {
     setExpDate(getMinExpiryDate()); // Set default expiry date to +3 years
@@ -79,7 +78,7 @@ export default function GenerateQRCode({ open, onClose, onGenerate }) {
     <>
       <Dialog open={open} onClose={onClose} maxWidth="xl">
         <DialogTitle>
-          Generate QR Code
+          Generate QR Coupon
         
         </DialogTitle>
         <DialogContent>

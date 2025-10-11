@@ -44,7 +44,7 @@ function CustomPagination({ apiRef, isMobile }) {
 
 const PAGE_SIZE = 5;
 
-export default function DashboardCommanPlus({ title, icon, columns, rows, toolbar, showCheckbox }) {
+export default function DashboardCommanPlus({ title, icon, columns, rows, toolbar, showCheckbox,filterBar }) {
   const navigate = useNavigate();
   const apiRef = useGridApiRef();
   const isMobile = useMediaQuery('(max-width:768px)');
@@ -89,7 +89,11 @@ export default function DashboardCommanPlus({ title, icon, columns, rows, toolba
       >
         {icon}{title}
       </Typography>
-
+            {filterBar && (
+           <Box sx={{ mb: 2 }}>
+             {filterBar}
+           </Box>
+         )}
       {/* Back Button */}
       <Box sx={{ mb: 2 , display:'flex', justifyContent:'end'}}>
         <Box>{toolbar}</Box>

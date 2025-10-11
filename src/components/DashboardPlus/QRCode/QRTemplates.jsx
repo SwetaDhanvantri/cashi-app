@@ -1,10 +1,8 @@
 import { Card, Typography,Grid } from '@mui/material';
-
-
 import logo from '../../../assets/cashilogo.png'
-import qrimg from '../../../assets/qr_code.png'
+import { QRCodeCanvas } from 'qrcode.react';
 
-export function Template1() {
+export function Template1({ qr = {}, user = {} }) {
      
    return (
     <>
@@ -12,11 +10,11 @@ export function Template1() {
                boxShadow: 'rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px',
                maxWidth:'320px', width:'100%', minHeight:'180px' , maxHeight:'auto'  }}>
                <Typography sx={{display:'flex', justifyContent:'space-between', alignItems:'start'}}>
-                <img src={logo} alt="" style={{height:'30px', width:'auto'}} />
-                <Typography variant='h6' sx={{fontSize:'12px', color:'#a1a1a1ff'}}> Sr No: 1234567890</Typography>
+                 <img src={user.store_image?.[0] || logo} alt="Logo" style={{ height: 30 }} />
+                <Typography variant='h6' sx={{fontSize:'12px', color:'#a1a1a1ff'}}> Sr No: {qr?.serial || 'N/A'}</Typography>
                </Typography>
                <Grid container rowSpacing={2} columnSpacing={2}  sx={{ mt:2}}>
-                   <Grid size={{ xs: 12,sm:6, md: 8,}} sx={{fontStyle:'italic'}}>
+                   <Grid size={{ xs: 8,sm:8, md: 8,}} sx={{fontStyle:'italic'}}>
                     <Typography variant='h6' sx={{fontSize:'12px', color:'#ccc'}}> Please scan the QR Code
                       with Cashi App to claim your coupon.
                     </Typography>
@@ -27,8 +25,8 @@ export function Template1() {
                         </Typography>
                     </Typography>
                    </Grid>
-                   <Grid size={{ xs: 12,sm:6, md: 4,}} sx={{textAlign:'right'}} >
-                      <img src={qrimg} alt="" style={{height:'80px', width:'auto'}} />
+                   <Grid size={{ xs: 4,sm:4, md: 4,}} sx={{textAlign:'right'}} >
+                     <QRCodeCanvas value={qr.qrValue} size={80} />
                    </Grid>
               
                </Grid>
@@ -36,31 +34,31 @@ export function Template1() {
     </>
   );
 }
-export function Template2() {
+export function Template2({ qr = {}, user = {} }) {
      
    return (
     <>
-      <Card sx={{ p: 2,m:2,background:'linear-gradient(195deg, #49a3f1, #1A73E8)', color:'#ffffff',
+      <Card sx={{ p: 2,m:2,background:'linear-gradient(195deg, #0c1543ff, #0c1543ff)', color:'#ffffff',
          boxShadow: 'rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px',
          maxWidth:'320px', width:'100%', minHeight:'180px' , maxHeight:'auto'}}>
          <Typography variant='h5' sx={{display:'flex', justifyContent:'space-between', alignItems:'start'}}>
-          Logo
-          <Typography variant='h6' sx={{fontSize:'12px', color:'#fff'}}> Sr No: 1234567890</Typography>
+           LOGO
+          <Typography variant='h6' sx={{fontSize:'12px', color:'#fff'}}> Sr No: {qr?.serial || 'N/A'}</Typography>
          </Typography>
          <Grid container rowSpacing={2} columnSpacing={2}  sx={{ mt:2}}>
-             <Grid size={{ xs: 12,sm:6, md: 8,}} sx={{fontStyle:'italic'}}>
+             <Grid size={{ xs: 8,sm:8, md: 8,}} sx={{fontStyle:'italic'}}>
               <Typography variant='h6' sx={{fontSize:'12px', color:'#fff'}}> Please scan the QR Code
-                with Cashi App to claim your coupon.
+                with ..... App to claim your coupon.
               </Typography>
               <Typography variant='h6' sx={{fontSize:'12px', color:'#fff', mt:1}}> 
                *Terms & Conditions apply.
                   <Typography variant='h6' sx={{fontSize:'12px', color:'#fff', }}> 
-                    Coupon valid till 31/12/2025
+                    Coupon valid till DD/MM/YYYY
                   </Typography>
               </Typography>
              </Grid>
-             <Grid size={{ xs: 12,sm:6, md: 4,}} sx={{textAlign:'right'}} >
-                <img src={qrimg} alt="" style={{height:'80px', width:'auto'}} />
+             <Grid size={{ xs: 4,sm:4, md: 4,}} sx={{textAlign:'right'}} >
+                <QRCodeCanvas value={qr.qrValue} size={80} />
              </Grid>
         
          </Grid>
@@ -68,20 +66,20 @@ export function Template2() {
     </>
   );
 }
-export function Template3() {
+export function Template3({ qr = {}, user = {} }) {
      
    return (
     <>
   {/* Coupon3 */}
-         <Card sx={{ p: 2,m:2,background:'linear-gradient(195deg, #66BB6A, #43A047)', color:'#ffffff',
+         <Card sx={{ p: 2,m:2,background:'linear-gradient(195deg, #008080, #006241)', color:'#ffffff',
          boxShadow: 'rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px',
          maxWidth:'320px', width:'100%', minHeight:'180px' , maxHeight:'auto' }}>
          <Typography variant='h5' sx={{display:'flex', justifyContent:'space-between', alignItems:'start'}}>
-          Logo
-          <Typography variant='h6' sx={{fontSize:'12px', color:'#fff'}}> Sr No: 1234567890</Typography>
+           <img src={user.store_image?.[0] || logo} alt="Logo" style={{ height: 30 }} />
+          <Typography variant='h6' sx={{fontSize:'12px', color:'#fff'}}> Sr No: {qr?.serial || 'N/A'}</Typography>
          </Typography>
          <Grid container rowSpacing={2} columnSpacing={2}  sx={{ mt:2}}>
-             <Grid size={{ xs: 12,sm:6, md: 8,}} sx={{fontStyle:'italic'}}>
+             <Grid size={{ xs: 8,sm:8, md: 8,}} sx={{fontStyle:'italic'}}>
               <Typography variant='h6' sx={{fontSize:'12px', color:'#fff'}}> Please scan the QR Code
                 with Cashi App to claim your coupon.
               </Typography>
@@ -92,8 +90,8 @@ export function Template3() {
                   </Typography>
               </Typography>
              </Grid>
-             <Grid size={{ xs: 12,sm:6, md: 4,}} sx={{textAlign:'right'}} >
-                <img src={qrimg} alt="" style={{height:'80px', width:'auto'}} />
+             <Grid size={{ xs: 4,sm:4, md: 4,}} sx={{textAlign:'right'}} >
+               <QRCodeCanvas value={qr.qrValue} size={80} />
              </Grid>
         
          </Grid>
@@ -101,19 +99,19 @@ export function Template3() {
     </>
   );
 }
-export function Template4() {
+export function Template4({ qr = {}, user = {} }) {
      
    return (
     <>
-  <Card sx={{ p: 2,m:2,background:'linear-gradient(195deg, #EC407A, #D81B60)', color:'#ffffff',
+  <Card sx={{ p: 2,m:2,background:'linear-gradient(195deg, #C6011F, #9e1b32)', color:'#ffffff',
          boxShadow: 'rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px',
          maxWidth:'320px', width:'100%',minHeight:'180px' , maxHeight:'auto'  }}>
          <Typography variant='h5' sx={{display:'flex', justifyContent:'space-between', alignItems:'start'}}>
-          Logo
-          <Typography variant='h6' sx={{fontSize:'12px', color:'#fff'}}> Sr No: 1234567890</Typography>
+          <img src={user.store_image?.[0] || logo} alt="Logo" style={{ height: 30 }} />
+          <Typography variant='h6' sx={{fontSize:'12px', color:'#fff'}}> Sr No: {qr?.serial || 'N/A'}</Typography>
          </Typography>
          <Grid container rowSpacing={2} columnSpacing={2}  sx={{ mt:2}}>
-             <Grid size={{ xs: 12,sm:6, md: 8,}} sx={{fontStyle:'italic'}}>
+             <Grid size={{ xs: 8,sm:8, md: 8,}} sx={{fontStyle:'italic'}}>
               <Typography variant='h6' sx={{fontSize:'12px', color:'#fff'}}> Please scan the QR Code
                 with Cashi App to claim your coupon.
               </Typography>
@@ -124,8 +122,8 @@ export function Template4() {
                   </Typography>
               </Typography>
              </Grid>
-             <Grid size={{ xs: 12,sm:6, md: 4,}} sx={{textAlign:'right'}} >
-                <img src={qrimg} alt="" style={{height:'80px', width:'auto'}} />
+             <Grid size={{ xs: 4,sm:4, md: 4,}} sx={{textAlign:'right'}} >
+               <QRCodeCanvas value={qr.qrValue} size={80} />
              </Grid>
         
          </Grid>

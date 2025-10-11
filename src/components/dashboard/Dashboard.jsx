@@ -1,17 +1,53 @@
+import { useEffect, useState } from "react";
 import { Box, Typography, Button, Container, Card, Divider } from "@mui/material";
 import Grid from '@mui/material/Grid';
 import { Add, ArrowCircleRight, Style, LocalOffer, Widgets, Diversity3, QrCode, QrCode2 } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
 import campimg from '../../assets/promotion.png'
 import cashipluslogo from '../../assets/CashiPluslogo.png'
-import { useState } from "react";
-
-
+import { callPostApi } from "../../components/API/ApiCallFunction";
+import GradientLoader from "../CommanComponents/GradientLoader";
 function Dashboard() {
 
 const user = JSON.parse(sessionStorage.getItem("user") || "{}");
 const [open, setOpen] = useState(false);
 const navigate = useNavigate();
+const [loading, setLoading] = useState(false);
+ const [datar, setDatar] = useState({
+  total_customer: 0,
+  total_issued: 0,
+  total_redeem: 0,
+});
+
+  const dashbaordApi = async () => {
+    setLoading(true);
+    const storeid = user.store_info.store_id;
+
+    const payload = {
+      mod: "CASHI_DASHBOARD_INFO",
+      data_arr: { store_id: storeid, start: "1", limit: "100" },
+    };
+    const apiResult = await callPostApi("cashi-dashboard", payload);
+    console.log("API Payload:", JSON.stringify(payload));
+    console.log("API Result:", JSON.stringify(apiResult));
+   if (apiResult.status === "200" && apiResult.data) {
+     const item = apiResult.data;
+     setDatar({
+       total_customer: item.total_customer || 0,
+       total_issued: item.total_issued || 0,
+       total_redeem: item.total_redeem || 0,
+     });
+     setLoading(false);
+   } 
+ else {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    dashbaordApi();
+  }, []);
+ 
   return (
     <Box>
 
@@ -40,7 +76,8 @@ const navigate = useNavigate();
                   </Button>
             </Box>
            
-            <Grid container rowSpacing={6} columnSpacing={2} my={6}>
+  
+              <Grid   container rowSpacing={6} columnSpacing={2} my={6}>
             <Grid size={{ xs: 12,sm:12, md: 6,}} position="relative" sx={{boxShadow: 'rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px'}}>
             <Card className="dashcard" sx={{padding:'10px 15px', backgroundColor:'#ffffff', }} >
                 <Grid container spacing={2}>
@@ -52,14 +89,14 @@ const navigate = useNavigate();
                </Grid>
                <Grid size={{ xs: 12,sm:6, md: 8,}} sx={{mb:4}}>
                  <Typography variant="h6">Issued Coupon</Typography>
-                <Typography variant="h4" >0</Typography>
+                <Typography variant="h4" >{datar.total_issued}</Typography>
                </Grid>
               
                 </Grid>
                
                 <Box position="absolute" bottom="0px" left="0px" width="100%" sx={{ textAlign:'center'}}>
                     <Divider sx={{borderColor:'#6c757d;'}} />
-                <Button sx={{fontWeight:'600'}} onClick={() => navigate('/issued')}>View More <ArrowCircleRight sx={{fontSize:'20px', marginLeft:"8px", marginBottom:'3px'}} /> </Button>
+                <Button sx={{fontWeight:'600'}} onClick={() => navigate('/issuedList')}>View More <ArrowCircleRight sx={{fontSize:'20px', marginLeft:"8px", marginBottom:'3px'}} /> </Button>
             </Box>
             </Card>
             </Grid>
@@ -76,14 +113,14 @@ const navigate = useNavigate();
                </Grid>
                   <Grid size={{ xs: 12,sm:6, md: 8,}} sx={{mb:4}}>
                  <Typography variant="h6">Reedemed Coupon</Typography>
-                <Typography variant="h4">0</Typography>
+                <Typography variant="h4">{datar.total_redeem}</Typography>
                
                  </Grid>
                 </Grid>
                
                  <Box position="absolute" bottom="0px" left="0px" width="100%" sx={{ textAlign:'center'}}>
                     <Divider sx={{borderColor:'#6c757d;'}} />
-                <Button sx={{fontWeight:'600'}} onClick={() => navigate('/redeemed')}
+                <Button sx={{fontWeight:'600'}} onClick={() => navigate('/redeemedList')}
                 >View More <ArrowCircleRight sx={{fontSize:'20px', marginLeft:"8px", marginBottom:'3px'}} /> </Button>
             </Box>
             </Card>
@@ -123,22 +160,23 @@ const navigate = useNavigate();
                </Grid>
                   <Grid size={{ xs: 12,sm:6, md: 8,}} sx={{mb:4}}>
                  <Typography variant="h6">Total Customers</Typography>
-                  <Typography variant="h4">0</Typography>
+                  <Typography variant="h4">{datar.total_customer}</Typography>
                  </Grid>
                 </Grid>
                
             </Card>
              <Box position="absolute" bottom="0px" left="0px" width="100%" sx={{ textAlign:'center'}}>
                     <Divider sx={{borderColor:'#6c757d;'}} />
-                <Button sx={{fontWeight:'600'}} onClick={() => navigate('/totalcustomer')}
+                <Button sx={{fontWeight:'600'}} onClick={() => navigate('/customerList')}
                 >View More <ArrowCircleRight sx={{fontSize:'20px', marginLeft:"8px", marginBottom:'3px'}} /> </Button>
             </Box>
             </Grid>
             </Grid>
           
         </Container>
+         {loading && <GradientLoader text="Loading" />}
       </Box>
-
+ 
      <style>
   {`
     .promotion:hover {
